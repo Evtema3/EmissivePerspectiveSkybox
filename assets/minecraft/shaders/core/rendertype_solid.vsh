@@ -33,8 +33,8 @@ void main() {
 
     vertexDistance = length((ModelViewMat * vec4(Position + ChunkOffset, 1.0)).xyz);
 	dimension = get_dimension(minecraft_sample_lightmap(Sampler2, ivec2(0.0, 0.0)));
-    vertexColor = Color * minecraft_sample_lightmap(Sampler2, UV2);
-    lightColor = minecraft_sample_lightmap(Sampler2, UV2);
+    vertexColor = Color;
+	lightColor = minecraft_sample_lightmap(Sampler2, UV2);
 	maxLightColor = minecraft_sample_lightmap(Sampler2, ivec2(240.0, 240.0));
     texCoord0 = UV0;
 	faceLightingNormal = Normal;

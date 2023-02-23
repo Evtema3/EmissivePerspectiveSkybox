@@ -33,8 +33,8 @@ out vec4 glpos;
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
 
-    vertexDistance = fog_distance(ModelViewMat, IViewRotMat * Position, FogShape);
-    vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color);
+    vertexDistance = length((ModelViewMat * vec4(Position, 1.0)).xyz);
+    vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color) * texelFetch(Sampler2, UV2 / 16, 0);
 	lightColor = minecraft_sample_lightmap(Sampler2, UV2);
 	maxLightColor = minecraft_sample_lightmap(Sampler2, ivec2(240.0, 240.0));
     texCoord0 = UV0;
