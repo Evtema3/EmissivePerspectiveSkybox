@@ -3,7 +3,6 @@
 #moj_import <skybox_utils.vsh>
 
 uniform sampler2D Sampler0;
-uniform sampler2D Sampler2;
 
 uniform vec4 ColorModulator;
 

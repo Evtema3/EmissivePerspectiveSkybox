@@ -4,7 +4,6 @@ in vec3 Position;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
-uniform float FogEnd;
 
 out mat4 ProjInv;
 out float isSky;

@@ -4,8 +4,6 @@
 #moj_import <skybox_utils.vsh>
 
 uniform vec4 ColorModulator;
-uniform float FogStart;
-uniform float FogEnd;
 uniform vec4 FogColor;
 uniform vec2 ScreenSize;
 uniform mat4 ModelViewMat;
