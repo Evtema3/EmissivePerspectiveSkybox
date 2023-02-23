@@ -1,6 +1,6 @@
 {
    "pack": {
-      "pack_format": 8,
-      "description": "Vanilla skybox"
+      "pack_format": 12,
+      "description": "Vanilla skybox + dynamic emissives"
    }
 }
