@@ -1,6 +1,8 @@
 #version 150
 
 #moj_import <light.glsl>
+#moj_import <fog.glsl>
+#moj_import <emissive_utils.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -12,20 +14,30 @@ uniform sampler2D Sampler2;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
+uniform int FogShape;
 uniform vec3 ChunkOffset;
 
 out float vertexDistance;
+out float dimension;
 out vec4 vertexColor;
+out vec4 lightColor;
+out vec4 maxLightColor;
 out vec2 texCoord0;
+out vec3 faceLightingNormal;
 out vec4 normal;
 out vec4 glpos;
 
 void main() {
-    gl_Position = ProjMat * ModelViewMat * vec4(Position + ChunkOffset, 1.0);
+    vec3 pos = Position + ChunkOffset;
+    gl_Position = ProjMat * ModelViewMat * vec4(pos, 1.0);
 
     vertexDistance = length((ModelViewMat * vec4(Position + ChunkOffset, 1.0)).xyz);
-    vertexColor = Color * minecraft_sample_lightmap(Sampler2, UV2);
+	dimension = get_dimension(minecraft_sample_lightmap(Sampler2, ivec2(0.0, 0.0)));
+    vertexColor = Color;
+	lightColor = minecraft_sample_lightmap(Sampler2, UV2);
+	maxLightColor = minecraft_sample_lightmap(Sampler2, ivec2(240.0, 240.0));
     texCoord0 = UV0;
+	faceLightingNormal = Normal;
     normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
     glpos = gl_Position;
 }
