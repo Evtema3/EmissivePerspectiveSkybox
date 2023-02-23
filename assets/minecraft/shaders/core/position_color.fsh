@@ -1,6 +1,6 @@
 #version 150
 
-#moj_import <utils.glsl>
+#moj_import <skybox_utils.vsh>
 
 in vec4 vertexColor;
 in float isHorizon;

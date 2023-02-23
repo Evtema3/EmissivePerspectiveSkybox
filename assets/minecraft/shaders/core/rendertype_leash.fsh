@@ -1,7 +1,7 @@
 #version 150
 
 #moj_import <fog.glsl>
-#moj_import <utils.glsl>
+#moj_import <skybox_utils.vsh>
 
 uniform float FogStart;
 uniform float FogEnd;

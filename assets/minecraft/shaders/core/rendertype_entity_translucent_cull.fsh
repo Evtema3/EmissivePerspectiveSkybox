@@ -1,8 +1,8 @@
 #version 150
 
 #moj_import <fog.glsl>
-#moj_import <utils.glsl>
-#moj_import <emissive_utils.glsl>
+#moj_import <skybox_utils.vsh>
+#moj_import <emissive_utils.vsh>
 
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler1;
