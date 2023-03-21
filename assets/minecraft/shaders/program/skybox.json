@@ -10,8 +10,15 @@
     "samplers": [
         { "name": "DiffuseSampler" },
         { "name": "DepthSampler" },
-		{ "name": "SkyBoxDaySampler" },
-		{ "name": "SkyBoxNightSampler" }
+        { "name": "ControlSampler" },
+		{ "name": "SkyBoxDaySampler1" },
+		{ "name": "SkyBoxNightSampler1" },
+		{ "name": "SkyBoxDaySampler2" },
+		{ "name": "SkyBoxNightSampler2" },
+		{ "name": "SkyBoxDaySampler3" },
+		{ "name": "SkyBoxNightSampler3" },
+		{ "name": "SkyBoxDaySampler4" },
+		{ "name": "SkyBoxNightSampler4" }
     ],
     "uniforms": [
         { "name": "ProjMat",    "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },

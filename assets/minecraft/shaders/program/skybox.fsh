@@ -2,8 +2,15 @@
 
 uniform sampler2D DiffuseSampler;
 uniform sampler2D DepthSampler;
-uniform sampler2D SkyBoxDaySampler;
-uniform sampler2D SkyBoxNightSampler;
+uniform sampler2D ControlSampler;
+uniform sampler2D SkyBoxDaySampler1;
+uniform sampler2D SkyBoxNightSampler1;
+uniform sampler2D SkyBoxDaySampler2;
+uniform sampler2D SkyBoxNightSampler2;
+uniform sampler2D SkyBoxDaySampler3;
+uniform sampler2D SkyBoxNightSampler3;
+uniform sampler2D SkyBoxDaySampler4;
+uniform sampler2D SkyBoxNightSampler4;
 uniform vec2 OutSize;
 
 in vec2 texCoord;
@@ -72,8 +79,28 @@ void main() {
 
 	if (far > 50 && realDepth > far / 2 - 5) {
 		
-		vec3 daySkybox = sampleSkybox(SkyBoxDaySampler, direction);
-		vec3 nightSkybox = sampleSkybox(SkyBoxNightSampler, direction);
+        vec4 control_color = texelFetch(ControlSampler, ivec2(0, 1), 0);
+        vec3 daySkybox = sampleSkybox(SkyBoxDaySampler1, direction);
+		vec3 nightSkybox = sampleSkybox(SkyBoxNightSampler1, direction);
+
+        switch(int(control_color.b * 255.)) {
+            case 1:
+                daySkybox = sampleSkybox(SkyBoxDaySampler1, direction);
+                nightSkybox = sampleSkybox(SkyBoxNightSampler1, direction);
+                break;
+            case 2:
+                daySkybox = sampleSkybox(SkyBoxDaySampler2, direction);
+                nightSkybox = sampleSkybox(SkyBoxNightSampler2, direction);
+                break;
+            case 3:
+                daySkybox = sampleSkybox(SkyBoxDaySampler3, direction);
+                nightSkybox = sampleSkybox(SkyBoxNightSampler3, direction);
+                break;
+            case 4:
+                daySkybox = sampleSkybox(SkyBoxDaySampler4, direction);
+                nightSkybox = sampleSkybox(SkyBoxNightSampler4, direction);
+                break;
+        }
 
 		float factor = smoothstep(-0.1, 0.1, timeOfDay);
 
