@@ -2,7 +2,7 @@
     "targets": [
         { "name": "controller", "width": 2, "height": 3 },
         { "name": "controllerSwap", "width": 2, "height": 3 },
-		"sky",
+        "sky",
         "swap1",
         "swap2",
         "translucent",
@@ -30,20 +30,10 @@
             ]
         },
         {
-            "name": "toggler/remove",
-            "intarget": "particles",
-            "outtarget": "final"
-        },
-        {
-            "name": "blit",
-            "intarget": "final",
-            "outtarget": "particles"
-        },
-		{
-			"name": "skybox",
-			"intarget": "minecraft:main",
-			"outtarget": "sky",
-			"auxtargets": [
+            "name": "skybox",
+            "intarget": "minecraft:main",
+            "outtarget": "sky",
+            "auxtargets": [
                 {
                     "name": "DepthSampler",
                     "id": "minecraft:main:depth"
@@ -52,20 +42,20 @@
                     "name": "ControlSampler",
                     "id": "controller"
                 },
-				{
-					"name": "SkyBoxDaySampler1",
+                {
+                    "name": "SkyBoxDaySampler1",
                     "id": "skybox-day1",
                     "width": 1,
                     "height": 1,
                     "bilinear": false
-				},
-				{
-					"name": "SkyBoxNightSampler1",
+                },
+                {
+                    "name": "SkyBoxNightSampler1",
                     "id": "skybox-night1",
                     "width": 1,
                     "height": 1,
                     "bilinear": false
-				},
+                },
                 {
                     "name": "SkyBoxDaySampler2",
                     "id": "skybox-day2",
@@ -108,8 +98,8 @@
                     "height": 1,
                     "bilinear": false
                 }
-			]
-		},
+            ]
+        },
         {
             "name": "transparency",
             "intarget": "sky",

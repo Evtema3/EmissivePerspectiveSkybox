@@ -9,8 +9,6 @@ uniform sampler2D Sampler2;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
-uniform mat3 IViewRotMat;
-uniform int FogShape;
 uniform vec2 ScreenSize;
 
 out float vertexDistance;
@@ -42,7 +40,7 @@ void main() {
     int offset = int(round(guiSize.y - Position.y));
     
     // offset xp text
-    if(Position.z == 0.0 // z location is always 0 
+    if(Position.z >= 500.0
         && ((length(Color.rgb - vec3(0.501, 1.0, 0.125)) < 0.002 && (isAt(offset, vID, 26) || isAt(offset, vID, 27))) // the bright text starts 27 pixels from the bottom, sometimes at 26
         || (length(Color.rgb - vec3(0.0, 0.0, 0.0)) < 0.002 && (isAt(offset, vID, 25) || isAt(offset, vID, 26) || isAt(offset, vID, 27) || isAt(offset, vID, 28))))) { // the darker background consists out of 3 elements (26,27,28), sometimes (25,26,27)
         
