@@ -47,7 +47,7 @@
         },
         {
             "_comment": "Used for custom skyboxes",
-            "name": "minecraft:post/skybox",
+            "program": "minecraft:post/skybox",
             "inputs": [
                 {
                     "sampler_name": "Main",

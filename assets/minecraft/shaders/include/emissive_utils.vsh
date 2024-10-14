@@ -92,11 +92,11 @@ vec4 face_lighting_check(vec3 normal, float inputAlpha, float dimension) {
 
 float remap_alpha(float inputAlpha) {
 	
-	if (check_alpha(inputAlpha, 252.0)) return 255.0; // Checks for alpha 252 and converts all pixels of that to alpha 255. Used in the example pack for redstone ore and the zombie's eyes.
-	else if (check_alpha(inputAlpha, 251.0)) return 190.0; // You can copy & paste this line and change the values to make any transparent block work with this pack. Used in the example pack for ice.
-	else if (check_alpha(inputAlpha, 250.0)) return 255.0; // Used in the example pack for lime concrete.
+	// if (check_alpha(inputAlpha, 252.0)) return 255.0; // Checks for alpha 252 and converts all pixels of that to alpha 255. Used in the example pack for redstone ore and the zombie's eyes.
+	// else if (check_alpha(inputAlpha, 251.0)) return 190.0; // You can copy & paste this line and change the values to make any transparent block work with this pack. Used in the example pack for ice.
+	// else if (check_alpha(inputAlpha, 250.0)) return 255.0; // Used in the example pack for lime concrete.
 	
-	else return inputAlpha; // If a pixel doesn't need to have its alpha changed then it simply does not change.
+	return inputAlpha; // If a pixel doesn't need to have its alpha changed then it simply does not change.
 	
 }
 

@@ -1,4 +1,4 @@
-#version 150
+#version 330
 
 #moj_import <shader_selector:marker_settings.glsl>
 #moj_import <shader_selector:utils.glsl>
@@ -82,11 +82,11 @@ void main() {
 
 	if (far > 50 && realDepth > far / 2 - 5) {
 		
-        vec4 control_color = decodeColor(texelFetch(DataSampler, ivec2(0, SKYBOX_CHANNEL), 0));
+        float control_color = decodeColor(texelFetch(DataSampler, ivec2(4, SKYBOX_CHANNEL), 0));
         vec3 daySkybox = sampleSkybox(SkyBoxDay1Sampler, direction);
 		vec3 nightSkybox = sampleSkybox(SkyBoxNight1Sampler, direction);
 
-        switch(int(control_color.b * 255.)) {
+        switch(int(control_color * 255.)) {
             case 1:
                 daySkybox = sampleSkybox(SkyBoxDay1Sampler, direction);
                 nightSkybox = sampleSkybox(SkyBoxNight1Sampler, direction);

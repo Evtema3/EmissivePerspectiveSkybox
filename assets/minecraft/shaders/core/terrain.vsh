@@ -15,7 +15,7 @@ uniform sampler2D Sampler2;
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
 uniform int FogShape;
-uniform vec3 ChunkOffset;
+uniform vec3 ModelOffset;
 
 out float vertexDistance;
 out float dimension;
@@ -27,10 +27,10 @@ out vec3 faceLightingNormal;
 out vec4 glpos;
 
 void main() {
-    vec3 pos = Position + ChunkOffset;
+    vec3 pos = Position + ModelOffset;
     gl_Position = ProjMat * ModelViewMat * vec4(pos, 1.0);
 
-    vertexDistance = length((ModelViewMat * vec4(Position + ChunkOffset, 1.0)).xyz);
+    vertexDistance = length((ModelViewMat * vec4(Position + ModelOffset, 1.0)).xyz);
 	dimension = get_dimension(minecraft_sample_lightmap(Sampler2, ivec2(0.0, 0.0)));
     vertexColor = Color;
 	lightColor = minecraft_sample_lightmap(Sampler2, UV2);
