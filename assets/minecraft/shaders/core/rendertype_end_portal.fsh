@@ -1,7 +1,7 @@
 #version 150
 
-#moj_import <matrix.glsl>
-#moj_import <skybox_utils.vsh>
+#moj_import <minecraft:matrix.glsl>
+#moj_import <minecraft:skybox_utils.vsh>
 
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler1;

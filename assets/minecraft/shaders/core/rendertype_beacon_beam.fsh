@@ -1,6 +1,6 @@
 #version 150
 
-#moj_import <skybox_utils.vsh>
+#moj_import <minecraft:skybox_utils.vsh>
 
 uniform sampler2D Sampler0;
 
@@ -9,7 +9,6 @@ uniform vec4 ColorModulator;
 in vec4 vertexColor;
 in vec2 texCoord0;
 in vec2 texCoord2;
-in vec4 normal;
 in vec4 glpos;
 
 out vec4 fragColor;

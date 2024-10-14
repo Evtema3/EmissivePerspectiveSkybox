@@ -1,14 +1,6 @@
 {
-    "blend": {
-        "func": "add",
-        "srcrgb": "srcalpha",
-        "dstrgb": "1-srcalpha"
-    },
-    "vertex": "position_color",
-    "fragment": "position_color",
-    "attributes": [
-        "Color"
-    ],
+    "vertex": "minecraft:core/position_color",
+    "fragment": "minecraft:core/position_color",
     "samplers": [
     ],
     "uniforms": [

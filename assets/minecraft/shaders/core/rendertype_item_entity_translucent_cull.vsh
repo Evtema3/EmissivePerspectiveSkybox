@@ -1,7 +1,7 @@
 #version 150
 
-#moj_import <light.glsl>
-#moj_import <fog.glsl>
+#moj_import <minecraft:light.glsl>
+#moj_import <minecraft:fog.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -22,21 +22,19 @@ uniform vec3 Light1_Direction;
 out float vertexDistance;
 out vec4 vertexColor;
 out vec4 lightColor;
-out vec4 maxLightColor;
+out vec4 faceLightColor;
 out vec2 texCoord0;
 out vec2 texCoord1;
 out vec2 texCoord2;
-out vec4 normal;
 
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
 
     vertexDistance = fog_distance(Position, FogShape);
-    vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color);
-	lightColor = minecraft_sample_lightmap(Sampler2, UV2);
-	maxLightColor = minecraft_sample_lightmap(Sampler2, ivec2(240.0, 240.0));
+    vertexColor = Color;
+    lightColor = minecraft_sample_lightmap(Sampler2, UV2);
+    faceLightColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, vec4(1.0));
     texCoord0 = UV0;
     texCoord1 = UV1;
     texCoord2 = UV2;
-    normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
 }

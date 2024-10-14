@@ -1,16 +1,6 @@
 {
-    "blend": {
-        "func": "add",
-        "srcrgb": "srcalpha",
-        "dstrgb": "1-srcalpha"
-    },
-    "vertex": "rendertype_leash",
-    "fragment": "rendertype_leash",
-    "attributes": [
-        "Position",
-        "Color",
-        "UV2"
-    ],
+    "vertex": "minecraft:core/rendertype_leash",
+    "fragment": "minecraft:core/rendertype_leash",
     "samplers": [
         { "name": "Sampler2" }
     ],

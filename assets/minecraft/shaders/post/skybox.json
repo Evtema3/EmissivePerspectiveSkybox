@@ -1,0 +1,22 @@
+{
+    "vertex": "minecraft:post/skybox",
+    "fragment": "minecraft:post/skybox",
+    "samplers": [
+        { "name": "MainSampler" },
+        { "name": "MainDepthSampler" },
+        { "name": "DiffuseSampler" },
+        { "name": "DataSampler" },
+        { "name": "SkyBoxDay1Sampler" },
+        { "name": "SkyBoxNight1Sampler" },
+        { "name": "SkyBoxDay2Sampler" },
+        { "name": "SkyBoxNight2Sampler" },
+        { "name": "SkyBoxDay3Sampler" },
+        { "name": "SkyBoxNight3Sampler" },
+        { "name": "SkyBoxDay4Sampler" },
+        { "name": "SkyBoxNight4Sampler" }
+    ],
+    "uniforms": [
+        { "name": "ProjMat",    "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+        { "name": "OutSize",    "type": "float",     "count": 2,  "values": [ 1.0, 1.0 ] }
+    ]
+}
