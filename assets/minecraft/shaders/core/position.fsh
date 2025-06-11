@@ -2,16 +2,14 @@
 
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:skybox_utils.vsh>
-
-uniform vec4 ColorModulator;
-uniform vec4 FogColor;
-uniform vec2 ScreenSize;
-uniform mat4 ModelViewMat;
-uniform mat4 ProjMat;
+#moj_import <minecraft:globals.glsl>
+#moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:projection.glsl>
 
 in mat4 ProjInv;
 in float isSky;
-in float vertexDistance;
+in float sphericalVertexDistance;
+in float cylindricalVertexDistance;
 
 out vec4 fragColor;
 
@@ -52,13 +50,13 @@ void main() {
         float ndusq = clamp(dot(view, vec3(0.0, 1.0, 0.0)), 0.0, 1.0);
         ndusq = ndusq * ndusq;
 
-        fragColor = linear_fog(ColorModulator, pow(1.0 - ndusq, 8.0), 0.0, 1.0, FogColor);
+        fragColor = apply_fog(ColorModulator, pow(1.0 - ndusq, 8.0), pow(1.0 - ndusq, 8.0), 0, 1, 0, 1, FogColor);
         fragColor.a = 0;
     }
     else {
-		if (vertexDistance < 800)
+		if (cylindricalVertexDistance < 800)
 			discard;
-		fragColor = ColorModulator;//linear_fog(ColorModulator, vertexDistance, FogStart, FogEnd, FogColor);
+		fragColor = ColorModulator;//apply_fog(ColorModulator, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
 	}
 
 }

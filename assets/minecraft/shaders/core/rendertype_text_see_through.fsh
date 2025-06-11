@@ -1,10 +1,9 @@
 #version 150
 
 #moj_import <minecraft:skybox_utils.vsh>
+#moj_import <minecraft:dynamictransforms.glsl>
 
 uniform sampler2D Sampler0;
-
-uniform vec4 ColorModulator;
 
 in vec4 vertexColor;
 in vec2 texCoord0;

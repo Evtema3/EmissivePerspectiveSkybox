@@ -6,7 +6,7 @@
 uniform sampler2D ParticlesSampler;
 uniform sampler2D DataSampler;
 
-uniform float GameTime;
+#moj_import <minecraft:globals.glsl>
 
 out vec4 fragColor;
 
@@ -104,7 +104,7 @@ void constantMotion(ivec2 iCoord, int op, float targetValue) {
     if (op == 2) {
         dx = fract(dx + 0.5) - 0.5;
     }
-    if (abs(v) < 0.01 && abs(x) < 0.01) {
+    if (abs(v) < 0.01 && abs(dx) < 0.01) {
         // Fix to target if target is reached
         if (iCoord.x == 3) {
             fragColor = encodeFloat(0.0);

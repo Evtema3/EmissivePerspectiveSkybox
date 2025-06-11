@@ -5,21 +5,15 @@
 #moj_import <minecraft:projection.glsl>
 
 in vec3 Position;
-in vec4 Color;
-in ivec2 UV2;
-
-uniform sampler2D Sampler2;
 
 out float sphericalVertexDistance;
 out float cylindricalVertexDistance;
-flat out vec4 vertexColor;
 out vec4 glpos;
 
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
+    glpos = gl_Position;
 
     sphericalVertexDistance = fog_spherical_distance(Position);
     cylindricalVertexDistance = fog_cylindrical_distance(Position);
-    vertexColor = Color * ColorModulator * texelFetch(Sampler2, UV2 / 16, 0);
-    glpos = gl_Position;
 }

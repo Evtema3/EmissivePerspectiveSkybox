@@ -3,7 +3,7 @@
 #moj_import <shader_selector:marker_settings.vsh>
 #moj_import <shader_selector:utils.vsh>
 
-uniform sampler2D DiffuseSampler;
+uniform sampler2D MainSampler;
 uniform sampler2D MainDepthSampler;
 uniform sampler2D DataSampler;
 uniform sampler2D SkyBoxDay1Sampler;
@@ -14,7 +14,11 @@ uniform sampler2D SkyBoxDay3Sampler;
 uniform sampler2D SkyBoxNight3Sampler;
 uniform sampler2D SkyBoxDay4Sampler;
 uniform sampler2D SkyBoxNight4Sampler;
-uniform vec2 OutSize;
+
+layout(std140) uniform SamplerInfo {
+    vec2 OutSize;
+    vec2 InSize;
+};
 
 in vec2 texCoord;
 in vec2 oneTexel;
@@ -75,7 +79,7 @@ vec4 linear_fog(vec4 inColor, float vertexDistance, float fogStart, float fogEnd
 
 void main() {
 	float realDepth = linearizeDepth(texture(MainDepthSampler, texCoord).r);
-    fragColor = texture(DiffuseSampler, texCoord);
+    fragColor = texture(MainSampler, texCoord);
 
 	vec3 temp = fragColor.rgb - vec3(0.157, 0.024, 0.024);
 	bool isNether = dot(temp, temp) < FUDGE;

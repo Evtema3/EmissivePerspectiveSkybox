@@ -1,8 +1,9 @@
 #version 150
 
-#moj_import <minecraft:light.glsl>
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:emissive_utils.vsh>
+#moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:projection.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -12,13 +13,9 @@ in vec3 Normal;
 
 uniform sampler2D Sampler2;
 
-uniform mat4 ModelViewMat;
-uniform mat4 ProjMat;
-uniform int FogShape;
-uniform vec3 ModelOffset;
-
-out float vertexDistance;
 out float dimension;
+out float sphericalVertexDistance;
+out float cylindricalVertexDistance;
 out vec4 vertexColor;
 out vec4 lightColor;
 out vec4 maxLightColor;
@@ -30,11 +27,12 @@ void main() {
     vec3 pos = Position + ModelOffset;
     gl_Position = ProjMat * ModelViewMat * vec4(pos, 1.0);
 
-    vertexDistance = length((ModelViewMat * vec4(Position + ModelOffset, 1.0)).xyz);
 	dimension = get_dimension(minecraft_sample_lightmap(Sampler2, ivec2(0.0, 0.0)));
     vertexColor = Color;
 	lightColor = minecraft_sample_lightmap(Sampler2, UV2);
 	maxLightColor = minecraft_sample_lightmap(Sampler2, ivec2(240.0, 240.0));
+    sphericalVertexDistance = fog_spherical_distance(pos);
+    cylindricalVertexDistance = fog_cylindrical_distance(pos);
     texCoord0 = UV0;
 	faceLightingNormal = Normal;
     glpos = gl_Position;

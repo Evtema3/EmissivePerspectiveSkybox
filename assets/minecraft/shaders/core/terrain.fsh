@@ -3,16 +3,13 @@
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:emissive_utils.vsh>
+#moj_import <minecraft:dynamictransforms.glsl>
 
 uniform sampler2D Sampler0;
 
-uniform vec4 ColorModulator;
-uniform float FogStart;
-uniform float FogEnd;
-uniform vec4 FogColor;
-
-in float vertexDistance;
 in float dimension;
+in float sphericalVertexDistance;
+in float cylindricalVertexDistance;
 in vec4 vertexColor;
 in vec4 lightColor;
 in vec4 maxLightColor;
@@ -26,12 +23,12 @@ void main() {
     discardControlGLPos(gl_FragCoord.xy, glpos);
     vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator;
 	float alpha = textureLod(Sampler0, texCoord0, 0.0).a * 255.0;
-	color = make_emissive(color, lightColor, maxLightColor, vertexDistance, alpha) / face_lighting_check(faceLightingNormal, alpha, dimension);
+	color = make_emissive(color, lightColor, maxLightColor, max(sphericalVertexDistance, cylindricalVertexDistance), alpha) / face_lighting_check(faceLightingNormal, alpha, dimension);
 	color.a = remap_alpha(alpha) / 255.0;
 #ifdef ALPHA_CUTOUT
     if (color.a < ALPHA_CUTOUT) {
         discard;
     }
 #endif
-    fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
+    fragColor = apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
 }
