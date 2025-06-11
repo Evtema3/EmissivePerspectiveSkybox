@@ -3,14 +3,14 @@
         "final": {},
         "swap": {},
         "swap2": {},
-        "data": {"width": 5, "height": 3},
+        "data": {"width": 5, "height": 3, "persistent": true},
         "data_swap": {"width": 5, "height": 3},
         "sky": {}
     },
     "passes": [
         {
-            "_comment": "Used by ShaderSelectorV3",
-            "program": "shader_selector:post/internal/blit",
+            "fragment_shader": "shader_selector:post/internal/blit",
+            "vertex_shader": "shader_selector:post/internal/blit",
             "inputs": [
                 {
                     "sampler_name": "In",
@@ -20,8 +20,8 @@
             "output": "data_swap"
         },
         {
-            "_comment": "Used by ShaderSelectorV3",
-            "program": "shader_selector:post/data",
+            "fragment_shader": "shader_selector:post/data",
+            "vertex_shader": "shader_selector:post/internal/blit",
             "inputs": [
                 {
                     "sampler_name": "Data",
@@ -35,8 +35,8 @@
             "output": "data"
         },
         {
-            "_comment": "Used by ShaderSelectorV3",
-            "program": "shader_selector:post/internal/remove_particles",
+            "fragment_shader": "shader_selector:post/internal/remove_particles",
+            "vertex_shader": "shader_selector:post/internal/blit",
             "inputs": [
                 {
                     "sampler_name": "Particles",
@@ -46,8 +46,8 @@
             "output": "swap"
         },
         {
-            "_comment": "Used for custom skyboxes",
-            "program": "minecraft:post/skybox",
+            "vertex_shader": "minecraft:post/skybox",
+            "fragment_shader": "minecraft:post/skybox",
             "inputs": [
                 {
                     "sampler_name": "Main",
@@ -61,10 +61,6 @@
                 {
                     "sampler_name": "Data",
                     "target": "data"
-                },
-                {
-                    "sampler_name": "Diffuse",
-                    "target": "minecraft:main"
                 },
                 {
                     "sampler_name": "SkyBoxDay1",
@@ -126,8 +122,8 @@
             "output": "sky"
         },
         {
-            "_comment": "Default pass",
-            "program": "minecraft:post/transparency",
+            "vertex_shader": "minecraft:post/screenquad",
+            "fragment_shader": "minecraft:post/transparency",
             "inputs": [
                 {
                     "sampler_name": "Main",
@@ -187,13 +183,28 @@
             "output": "final"
         },
         {
-            "program": "minecraft:post/blit",
+            "vertex_shader": "minecraft:post/blit",
+            "fragment_shader": "minecraft:post/blit",
             "inputs": [
                 {
                     "sampler_name": "In",
                     "target": "final"
                 }
             ],
+            "uniforms": {
+                "BlitConfig": [
+                    {
+                        "name": "ColorModulate",
+                        "type": "vec4",
+                        "value": [
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    }
+                ]
+            },
             "output": "minecraft:main"
         }
     ]

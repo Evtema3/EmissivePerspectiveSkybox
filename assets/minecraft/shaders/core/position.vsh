@@ -1,13 +1,15 @@
 #version 150
 
-in vec3 Position;
+#moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:projection.glsl>
 
-uniform mat4 ModelViewMat;
-uniform mat4 ProjMat;
+in vec3 Position;
 
 out mat4 ProjInv;
 out float isSky;
-out float vertexDistance;
+out float sphericalVertexDistance;
+out float cylindricalVertexDistance;
 
 #define BOTTOM -32.0
 #define SCALE 0.01
@@ -43,5 +45,6 @@ void main() {
     }
 
     ProjInv = inverse(ProjMat * ModelViewMat);
-    vertexDistance = length((ModelViewMat * vec4(Position, 1.0)).xyz);
+    sphericalVertexDistance = length((ModelViewMat * vec4(Position, 1.0)).xyz);
+    cylindricalVertexDistance = sphericalVertexDistance;
 }

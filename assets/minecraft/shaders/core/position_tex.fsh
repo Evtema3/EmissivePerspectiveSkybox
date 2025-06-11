@@ -1,11 +1,10 @@
 #version 150
 
 #moj_import <minecraft:skybox_utils.vsh>
+#moj_import <minecraft:globals.glsl>
+#moj_import <minecraft:dynamictransforms.glsl>
 
 uniform sampler2D Sampler0;
-uniform vec4 ColorModulator;
-uniform vec2 ScreenSize;
-uniform mat4 ModelViewMat;
 
 in mat4 ProjInv;
 in vec3 cscale;

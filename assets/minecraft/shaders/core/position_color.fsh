@@ -1,12 +1,11 @@
 #version 150
 
 #moj_import <minecraft:skybox_utils.vsh>
+#moj_import <minecraft:globals.glsl>
+#moj_import <minecraft:dynamictransforms.glsl>
 
 in vec4 vertexColor;
 in float isHorizon;
-
-uniform vec4 ColorModulator;
-uniform vec2 ScreenSize;
 
 out vec4 fragColor;
 
