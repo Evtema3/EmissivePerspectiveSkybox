@@ -1,7 +1,7 @@
 #version 330
 
-#moj_import <shader_selector:marker_settings.glsl>
-#moj_import <shader_selector:utils.glsl>
+#moj_import <shader_selector:marker_settings.vsh>
+#moj_import <shader_selector:utils.vsh>
 
 uniform sampler2D DiffuseSampler;
 uniform sampler2D MainDepthSampler;

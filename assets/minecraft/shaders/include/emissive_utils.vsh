@@ -38,6 +38,15 @@ vec4 make_emissive(vec4 inputColor, vec4 lightColor, vec4 maxLightColor, float v
 	
 }
 
+// for particle, entitiy, entity block and item(player head, banner, ...)
+vec4 apply_global_emissive(vec4 inputColor, vec4 lightColor, float inputAlpha) {
+	vec4 remappingColor = inputColor * lightColor;
+	if(check_alpha(inputAlpha, 242.0)) {
+		remappingColor = inputColor;
+		remappingColor.a = 1.0;
+	}
+	return remappingColor;
+}
 
 // Gets the dimension that an object is in, -1 for The Nether, 0 for The Overworld, 1 for The End.
 
@@ -92,11 +101,10 @@ vec4 face_lighting_check(vec3 normal, float inputAlpha, float dimension) {
 
 float remap_alpha(float inputAlpha) {
 	
-	// if (check_alpha(inputAlpha, 252.0)) return 255.0; // Checks for alpha 252 and converts all pixels of that to alpha 255. Used in the example pack for redstone ore and the zombie's eyes.
-	// else if (check_alpha(inputAlpha, 251.0)) return 190.0; // You can copy & paste this line and change the values to make any transparent block work with this pack. Used in the example pack for ice.
-	// else if (check_alpha(inputAlpha, 250.0)) return 255.0; // Used in the example pack for lime concrete.
+	if (check_alpha(inputAlpha, 252.0)) return 255.0; // Checks for alpha 252 and converts all pixels of that to alpha 255. Used in the example pack for redstone ore and the zombie's eyes.
+	else if (check_alpha(inputAlpha, 251.0)) return 190.0; // You can copy & paste this line and change the values to make any transparent block work with this pack. Used in the example pack for ice.
+	else if (check_alpha(inputAlpha, 250.0)) return 255.0; // Used in the example pack for lime concrete.
 	
 	return inputAlpha; // If a pixel doesn't need to have its alpha changed then it simply does not change.
 	
 }
-

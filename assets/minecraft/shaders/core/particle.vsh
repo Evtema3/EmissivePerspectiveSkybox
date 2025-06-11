@@ -19,9 +19,10 @@ out vec2 texCoord0;
 out vec4 vertexColor;
 out vec4 lightColor;
 out vec4 maxLightColor;
+out vec4 glpos;
 
 // ShaderSelector
-#moj_import <shader_selector:marker_settings.glsl>
+#moj_import <shader_selector:marker_settings.vsh>
 
 uniform vec2 ScreenSize;
 
@@ -62,7 +63,8 @@ void main() {
 
     vertexDistance = fog_distance(Position, FogShape);
     texCoord0 = UV0;
-    vertexColor = Color * texelFetch(Sampler2, UV2 / 16, 0);
+    vertexColor = Color;
     lightColor = minecraft_sample_lightmap(Sampler2, UV2);
     maxLightColor = minecraft_sample_lightmap(Sampler2, ivec2(240.0, 240.0));
+    glpos = gl_Position;
 }

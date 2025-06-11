@@ -1,6 +1,6 @@
 #version 150
 
-#moj_import <shader_selector:marker_settings.glsl>
+#moj_import <shader_selector:marker_settings.vsh>
 
 uniform sampler2D ParticlesSampler;
 
