@@ -4,6 +4,7 @@
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:emissive_utils.vsh>
 #moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:globals.glsl>
 
 uniform sampler2D Sampler0;
 
@@ -20,7 +21,7 @@ in vec4 glpos;
 out vec4 fragColor;
 
 void main() {
-    discardControlGLPos(gl_FragCoord.xy, glpos);
+    discardControl(gl_FragCoord.xy, ScreenSize.x);
     vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator;
 	float alpha = textureLod(Sampler0, texCoord0, 0.0).a * 255.0;
 	color = make_emissive(color, lightColor, maxLightColor, max(sphericalVertexDistance, cylindricalVertexDistance), alpha) / face_lighting_check(faceLightingNormal, alpha, dimension);

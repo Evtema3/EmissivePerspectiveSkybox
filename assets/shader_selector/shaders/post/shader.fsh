@@ -11,9 +11,9 @@ layout(std140) uniform SamplerInfo {
 
 #moj_import <minecraft:globals.glsl>
 
-#moj_import <shader_selector:marker_settings.glsl>
-#moj_import <shader_selector:utils.glsl>
-#moj_import <shader_selector:data_reader.glsl>
+#moj_import <shader_selector:marker_settings.vsh>
+#moj_import <shader_selector:utils.vsh>
+#moj_import <shader_selector:data_reader.vsh>
 
 in vec2 texCoord;
 

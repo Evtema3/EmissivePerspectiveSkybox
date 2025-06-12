@@ -2,6 +2,7 @@
 
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:dynamictransforms.glsl>
 #moj_import <minecraft:projection.glsl>
 
@@ -14,7 +15,7 @@ in vec4 glpos;
 out vec4 fragColor;
 
 void main() {
-    discardControlGLPos(gl_FragCoord.xy, glpos);
+    discardControl(gl_FragCoord.xy, ScreenSize.x);
     vec4 color = texture(Sampler0, texCoord0);
     color *= vertexColor * ColorModulator;
     float fragmentDistance = -ProjMat[3].z / ((gl_FragCoord.z) * -2.0 + 1.0 - ProjMat[2].z);
