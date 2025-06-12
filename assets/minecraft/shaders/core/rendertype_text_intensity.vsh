@@ -18,8 +18,8 @@ out vec4 vertexColor;
 out vec2 texCoord0;
 out vec4 glpos;
 
-bool isAt(int offset, int vID, int pos) {
-    return (((vID == 1 || vID == 2) && offset == pos) || ((vID == 0 || vID == 3) && offset == (pos+8)));
+bool isAt(int offset, int vID, float pos0, float pos1) {
+    return (((vID == 1 || vID == 2) && offset >= pos0 && offset <= pos1) || ((vID == 0 || vID == 3) && offset >= (pos0+8) && offset <= (pos1+8)));
 }
 
 void main() {
@@ -43,9 +43,9 @@ void main() {
     int offset = int(round(guiSize.y - Position.y));
     
     // offset xp text
-    if(Position.z >= 500.0
-        && ((length(Color.rgb - vec3(0.501, 1.0, 0.125)) < 0.002 && (isAt(offset, vID, 26) || isAt(offset, vID, 27))) // the bright text starts 27 pixels from the bottom, sometimes at 26
-        || (length(Color.rgb - vec3(0.0, 0.0, 0.0)) < 0.002 && (isAt(offset, vID, 25) || isAt(offset, vID, 26) || isAt(offset, vID, 27) || isAt(offset, vID, 28))))) { // the darker background consists out of 3 elements (26,27,28), sometimes (25,26,27)
+    if(Position.z <= 1.0
+        && (length(Color.rgb - vec3(0.501, 1.0, 0.125)) < 0.002 && (isAt(offset, vID, 25,28))) // the bright text starts 27 pixels from the bottom, sometimes at 26
+        || (length(Color.rgb - vec3(0.0, 0.0, 0.0)) < 0.002 && (isAt(offset, vID, 24,29)))) { // the darker background consists out of 3 elements (26,27,28), sometimes (25,26,27)
         
         /** Reposition (Remove up to Reposition End if unnecessary)**/
         pos += vec3(0.0,1000.0,0.0); // apply an offset
