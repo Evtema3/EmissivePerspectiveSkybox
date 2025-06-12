@@ -3,6 +3,8 @@
 #moj_import <minecraft:emissive_utils.vsh>
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:skybox_utils.vsh>
+#moj_import <minecraft:globals.glal>
 
 uniform sampler2D Sampler0;
 
@@ -12,6 +14,7 @@ in vec2 texCoord0;
 in vec4 vertexColor;
 in vec4 lightColor;
 in vec4 maxLightColor;
+in vec4 glpos;
 
 out vec4 fragColor;
 
@@ -20,6 +23,8 @@ flat in int isMarker;
 flat in ivec4 iColor;
 
 void main() {
+    discardControl(gl_FragCoord.xy, ScreenSize.x);
+
     // ShaderSelector
     if (isMarker == 1) {
         fragColor = vec4(iColor.rgb, 255) / 255.0;
