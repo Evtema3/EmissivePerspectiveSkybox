@@ -4,7 +4,7 @@
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:dynamictransforms.glsl>
 #moj_import <minecraft:skybox_utils.vsh>
-#moj_import <minecraft:globals.glal>
+#moj_import <minecraft:globals.glsl>
 
 uniform sampler2D Sampler0;
 
