@@ -43,7 +43,7 @@ void main() {
     int offset = int(round(guiSize.y - Position.y));
     
     // offset xp text
-    if(Position.z <= 1.0
+    if(Position.z <= 7.0
         && (length(Color.rgb - vec3(0.501, 1.0, 0.125)) < 0.002 && (isAt(offset, vID, 25,28))) // the bright text starts 27 pixels from the bottom, sometimes at 26
         || (length(Color.rgb - vec3(0.0, 0.0, 0.0)) < 0.002 && (isAt(offset, vID, 24,29)))) { // the darker background consists out of 3 elements (26,27,28), sometimes (25,26,27)
         
