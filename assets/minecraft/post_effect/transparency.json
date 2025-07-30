@@ -10,7 +10,7 @@
     "passes": [
         {
             "fragment_shader": "shader_selector:post/internal/blit",
-            "vertex_shader": "shader_selector:post/internal/blit",
+            "vertex_shader": "minecraft:core/screenquad",
             "inputs": [
                 {
                     "sampler_name": "In",
@@ -21,7 +21,7 @@
         },
         {
             "fragment_shader": "shader_selector:post/data",
-            "vertex_shader": "shader_selector:post/internal/blit",
+            "vertex_shader": "minecraft:core/screenquad",
             "inputs": [
                 {
                     "sampler_name": "Data",
@@ -36,7 +36,7 @@
         },
         {
             "fragment_shader": "shader_selector:post/internal/remove_particles",
-            "vertex_shader": "shader_selector:post/internal/blit",
+            "vertex_shader": "minecraft:core/screenquad",
             "inputs": [
                 {
                     "sampler_name": "Particles",
@@ -122,7 +122,7 @@
             "output": "sky"
         },
         {
-            "vertex_shader": "minecraft:post/screenquad",
+            "vertex_shader": "minecraft:core/screenquad",
             "fragment_shader": "minecraft:post/transparency",
             "inputs": [
                 {
@@ -154,7 +154,7 @@
                 },
                 {
                     "sampler_name": "Particles",
-                    "target": "swap"
+                    "target": "minecraft:particles"
                 },
                 {
                     "sampler_name": "ParticlesDepth",
@@ -183,7 +183,7 @@
             "output": "final"
         },
         {
-            "vertex_shader": "minecraft:post/blit",
+            "vertex_shader": "minecraft:core/screenquad",
             "fragment_shader": "minecraft:post/blit",
             "inputs": [
                 {

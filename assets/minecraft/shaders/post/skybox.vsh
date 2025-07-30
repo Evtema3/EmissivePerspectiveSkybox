@@ -59,12 +59,13 @@ float decodeFloat(vec3 ivec) {
 }
 
 void main(){
-    vec4 outPos = ProjMat * vec4(Position.xy * OutSize, 0.0, 1.0);
-    gl_Position = vec4(outPos.xy, 0.2, 1.0);
-	
-    oneTexel = 1.0 / InSize;
+    vec2 uv = vec2((gl_VertexID << 1) & 2, gl_VertexID & 2);
+    vec4 pos = vec4(uv * vec2(2, 2) + vec2(-1, -1), 0, 1);
 
-    texCoord = Position.xy;
+    gl_Position = pos;
+    texCoord = uv;
+
+    oneTexel = 1.0 / InSize;
 	
 	vec2 start = getControl(0, OutSize);
     vec2 inc = vec2(2.0 / OutSize.x, 0.0);
@@ -98,5 +99,5 @@ void main(){
 
 	vec2 squareUV = (texCoord - 0.5) / (OutSize.yy / OutSize.xy);
 	
-	direction = (projInv * vec4(outPos.xy * (far - near), far + near, far - near)).xyz;
+	direction = (projInv * vec4(pos.xy * (far - near), far + near, far - near)).xyz;
 }
