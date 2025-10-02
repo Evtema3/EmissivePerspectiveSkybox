@@ -1,4 +1,4 @@
-#version 150
+#version 330
 
 #moj_import <minecraft:emissive_utils.vsh>
 #moj_import <minecraft:light.glsl>
