@@ -2,8 +2,6 @@
  
 #moj_import <minecraft:projection.glsl>
 
-in vec4 Position;
-
 uniform sampler2D MainSampler;
 
 layout(std140) uniform SamplerInfo {
