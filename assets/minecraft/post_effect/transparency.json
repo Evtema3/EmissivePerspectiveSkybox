@@ -98,7 +98,7 @@
                     "bilinear": false
                 },
                 {
-                    "sampler_name": "SkyBoxD6",
+                    "sampler_name": "SkyBox6",
                     "location": "skybox6",
                     "width": 1,
                     "height": 1,
