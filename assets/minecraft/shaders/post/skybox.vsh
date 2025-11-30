@@ -88,6 +88,7 @@ void main(){
     fogColor = texture(MainSampler, start + inc * 25);;
 
     timeOfDay = dot(sunDir, vec3(0, 1, 0));
+    timeOfDay = 1.0;
 
     near = PROJNEAR;
     far = ProjMat[3][2] * near / (ProjMat[3][2] + 2.0 * near);

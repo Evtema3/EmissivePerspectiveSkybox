@@ -6,14 +6,12 @@
 uniform sampler2D MainSampler;
 uniform sampler2D MainDepthSampler;
 uniform sampler2D DataSampler;
-uniform sampler2D SkyBoxDay1Sampler;
-uniform sampler2D SkyBoxNight1Sampler;
-uniform sampler2D SkyBoxDay2Sampler;
-uniform sampler2D SkyBoxNight2Sampler;
-uniform sampler2D SkyBoxDay3Sampler;
-uniform sampler2D SkyBoxNight3Sampler;
-uniform sampler2D SkyBoxDay4Sampler;
-uniform sampler2D SkyBoxNight4Sampler;
+uniform sampler2D SkyBox1Sampler;
+uniform sampler2D SkyBox2Sampler;
+uniform sampler2D SkyBox3Sampler;
+uniform sampler2D SkyBox4Sampler;
+uniform sampler2D SkyBox5Sampler;
+uniform sampler2D SkyBox6Sampler;
 
 layout(std140) uniform SamplerInfo {
     vec2 OutSize;
@@ -87,31 +85,30 @@ void main() {
 	if (far > 50 && realDepth > far / 2 - 5) {
 		
         float control_color = decodeColor(texelFetch(DataSampler, ivec2(4, SKYBOX_CHANNEL), 0));
-        vec3 daySkybox = sampleSkybox(SkyBoxDay1Sampler, direction);
-		vec3 nightSkybox = sampleSkybox(SkyBoxNight1Sampler, direction);
+        vec3 skyColor = sampleSkybox(SkyBox1Sampler, direction);
 
         switch(int(control_color * 255.)) {
             case 1:
-                daySkybox = sampleSkybox(SkyBoxDay1Sampler, direction);
-                nightSkybox = sampleSkybox(SkyBoxNight1Sampler, direction);
+                skyColor = sampleSkybox(SkyBox1Sampler, direction);
                 break;
             case 2:
-                daySkybox = sampleSkybox(SkyBoxDay2Sampler, direction);
-                nightSkybox = sampleSkybox(SkyBoxNight2Sampler, direction);
+                skyColor = sampleSkybox(SkyBox2Sampler, direction);
                 break;
             case 3:
-                daySkybox = sampleSkybox(SkyBoxDay3Sampler, direction);
-                nightSkybox = sampleSkybox(SkyBoxNight3Sampler, direction);
+                skyColor = sampleSkybox(SkyBox3Sampler, direction);
                 break;
             case 4:
-                daySkybox = sampleSkybox(SkyBoxDay4Sampler, direction);
-                nightSkybox = sampleSkybox(SkyBoxNight4Sampler, direction);
+                skyColor = sampleSkybox(SkyBox4Sampler, direction);
+                break;
+			case 5:
+                skyColor = sampleSkybox(SkyBox5Sampler, direction);
+                break;
+			case 6:
+                skyColor = sampleSkybox(SkyBox6Sampler, direction);
                 break;
         }
 
 		float factor = smoothstep(-0.1, 0.1, timeOfDay);
-
-		vec3 skyColor = mix(nightSkybox, daySkybox, factor);
 
 		vec4 screenPos = gl_FragCoord;
         screenPos.xy = (screenPos.xy / OutSize - vec2(0.5)) * 2.0;

@@ -63,57 +63,43 @@
                     "target": "data"
                 },
                 {
-                    "sampler_name": "SkyBoxDay1",
-                    "location": "skybox-day1",
+                    "sampler_name": "SkyBox1",
+                    "location": "skybox1",
                     "width": 1,
                     "height": 1,
                     "bilinear": false
                 },
                 {
-                    "sampler_name": "SkyBoxNight1",
-                    "location": "skybox-night1",
+                    "sampler_name": "SkyBox2",
+                    "location": "skybox2",
                     "width": 1,
                     "height": 1,
                     "bilinear": false
                 },
                 {
-                    "sampler_name": "SkyBoxDay2",
-                    "location": "skybox-day2",
+                    "sampler_name": "SkyBox3",
+                    "location": "skybox3",
                     "width": 1,
                     "height": 1,
                     "bilinear": false
                 },
                 {
-                    "sampler_name": "SkyBoxNight2",
-                    "location": "skybox-night2",
+                    "sampler_name": "SkyBox4",
+                    "location": "skybox4",
                     "width": 1,
                     "height": 1,
                     "bilinear": false
                 },
                 {
-                    "sampler_name": "SkyBoxDay3",
-                    "location": "skybox-day3",
+                    "sampler_name": "SkyBox5",
+                    "location": "skybox5",
                     "width": 1,
                     "height": 1,
                     "bilinear": false
                 },
                 {
-                    "sampler_name": "SkyBoxNight3",
-                    "location": "skybox-night3",
-                    "width": 1,
-                    "height": 1,
-                    "bilinear": false
-                },
-                {
-                    "sampler_name": "SkyBoxDay4",
-                    "location": "skybox-day4",
-                    "width": 1,
-                    "height": 1,
-                    "bilinear": false
-                },
-                {
-                    "sampler_name": "SkyBoxNight4",
-                    "location": "skybox-night4",
+                    "sampler_name": "SkyBoxD6",
+                    "location": "skybox6",
                     "width": 1,
                     "height": 1,
                     "bilinear": false
