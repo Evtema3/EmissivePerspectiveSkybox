@@ -31,7 +31,7 @@ void main() {
         if (isSun > 0.75 && index >= 0 && index <= 2) {
             vec4 sunDir = ModelViewMat * vec4(normalize(c1 / cscale.x + c3 / cscale.z), 0.0);
             color = vec4(encodeFloat(sunDir[index]), 1.0);
-        } 
+        }
         else if (isSun < 0.25) {
             color = texture(Sampler0, texCoord0);
         }
