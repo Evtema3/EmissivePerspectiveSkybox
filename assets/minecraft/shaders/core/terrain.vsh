@@ -2,7 +2,8 @@
 
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:emissive_utils.vsh>
-#moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:globals.glsl>
+#moj_import <minecraft:chunksection.glsl>
 #moj_import <minecraft:projection.glsl>
 
 in vec3 Position;
@@ -24,7 +25,7 @@ out vec3 faceLightingNormal;
 out vec4 glpos;
 
 void main() {
-    vec3 pos = Position + ModelOffset;
+    vec3 pos = Position + (ChunkPosition - CameraBlockPos) + CameraOffset;
     gl_Position = ProjMat * ModelViewMat * vec4(pos, 1.0);
 
 	dimension = get_dimension(minecraft_sample_lightmap(Sampler2, ivec2(0.0, 0.0)));
