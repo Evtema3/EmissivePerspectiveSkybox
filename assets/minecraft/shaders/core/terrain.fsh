@@ -15,12 +15,11 @@ in vec4 vertexColor;
 in vec4 lightColor;
 in vec4 maxLightColor;
 in vec2 texCoord0;
-in vec3 faceLightingNormal;
 in vec4 glpos;
 
 out vec4 fragColor;
 
-vec4 sampleNearest(sampler2D sampler, vec2 uv, vec2 pixelSize, vec2 du, vec2 dv, vec2 texelScreenSize) {
+vec4 sampleNearest(sampler2D source, vec2 uv, vec2 pixelSize, vec2 du, vec2 dv, vec2 texelScreenSize) {
     // Convert our UV back up to texel coordinates and find out how far over we are from the center of each pixel
     vec2 uvTexelCoords = uv / pixelSize;
     vec2 texelCenter = round(uvTexelCoords) - 0.5f;
@@ -31,7 +30,7 @@ vec4 sampleNearest(sampler2D sampler, vec2 uv, vec2 pixelSize, vec2 du, vec2 dv,
     texelOffset = clamp(texelOffset, 0.0f, 1.0f);
 
     uv = (texelCenter + texelOffset) * pixelSize;
-    return textureGrad(sampler, uv, du, dv);
+    return textureGrad(source, uv, du, dv);
 }
 
 vec4 sampleNearest(sampler2D source, vec2 uv, vec2 pixelSize) {
@@ -97,7 +96,7 @@ void main() {
     vec4 color = (UseRgss == 1 ? sampleRGSS(Sampler0, texCoord0, 1.0f / TextureSize) : sampleNearest(Sampler0, texCoord0, 1.0f / TextureSize));
     float alpha = color.a * 255.0;
     color *= vertexColor;
-	color = make_emissive(color, lightColor, maxLightColor, max(sphericalVertexDistance, cylindricalVertexDistance), alpha) / face_lighting_check(faceLightingNormal, alpha, dimension);
+	color = make_emissive(color, lightColor, maxLightColor, max(sphericalVertexDistance, cylindricalVertexDistance), alpha);
 	color.a = remap_alpha(alpha) / 255.0;
     color = mix(FogColor * vec4(1, 1, 1, color.a), color, ChunkVisibility);
 #ifdef ALPHA_CUTOUT

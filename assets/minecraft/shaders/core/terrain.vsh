@@ -5,12 +5,12 @@
 #moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:chunksection.glsl>
 #moj_import <minecraft:projection.glsl>
+#moj_import <minecraft:sample_lightmap.glsl>
 
 in vec3 Position;
 in vec4 Color;
 in vec2 UV0;
 in ivec2 UV2;
-in vec3 Normal;
 
 uniform sampler2D Sampler2;
 
@@ -28,13 +28,12 @@ void main() {
     vec3 pos = Position + (ChunkPosition - CameraBlockPos) + CameraOffset;
     gl_Position = ProjMat * ModelViewMat * vec4(pos, 1.0);
 
-	dimension = get_dimension(minecraft_sample_lightmap(Sampler2, ivec2(0.0, 0.0)));
+	dimension = get_dimension(sample_lightmap(Sampler2, ivec2(0.0, 0.0)));
     vertexColor = Color;
-	lightColor = minecraft_sample_lightmap(Sampler2, UV2);
-	maxLightColor = minecraft_sample_lightmap(Sampler2, ivec2(240.0, 240.0));
+	lightColor = sample_lightmap(Sampler2, UV2);
+	maxLightColor = sample_lightmap(Sampler2, ivec2(240.0, 240.0));
     sphericalVertexDistance = fog_spherical_distance(pos);
     cylindricalVertexDistance = fog_cylindrical_distance(pos);
     texCoord0 = UV0;
-	faceLightingNormal = Normal;
     glpos = gl_Position;
 }

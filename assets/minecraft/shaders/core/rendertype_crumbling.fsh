@@ -10,7 +10,6 @@ in float sphericalVertexDistance;
 in float cylindricalVertexDistance;
 in vec4 vertexColor;
 in vec2 texCoord0;
-in vec2 texCoord2;
 in vec4 glpos;
 
 out vec4 fragColor;
