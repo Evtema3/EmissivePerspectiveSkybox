@@ -19,7 +19,7 @@ in vec4 glpos;
 out vec4 fragColor;
 
 void main() {
-    discardControl(gl_FragCoord.xy, ScreenSize.x);
+    discardControlGLPos(gl_FragCoord.xy, glpos);
     vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator;
     float alpha = textureLod(Sampler0, texCoord0, 0.0).a * 255.0;
     color = make_emissive(color, lightMapColor, maxLightColor, max(sphericalVertexDistance, cylindricalVertexDistance), alpha);

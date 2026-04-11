@@ -15,7 +15,7 @@ in vec4 glpos;
 out vec4 fragColor;
 
 void main() {
-    discardControl(gl_FragCoord.xy, ScreenSize.x);
+    discardControlGLPos(gl_FragCoord.xy, glpos);
     vec4 color = texture(Sampler0, texCoord0);
     color *= vertexColor * ColorModulator;
     float fragmentDistance = -ProjMat[3].z / ((gl_FragCoord.z) * -2.0 + 1.0 - ProjMat[2].z);

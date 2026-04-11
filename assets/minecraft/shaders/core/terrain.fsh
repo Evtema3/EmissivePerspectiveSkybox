@@ -3,8 +3,8 @@
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:emissive_utils.vsh>
-#moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:chunksection.glsl>
+#moj_import <minecraft:globals.glsl>
 
 uniform sampler2D Sampler0;
 
@@ -92,7 +92,7 @@ vec4 sampleRGSS(sampler2D source, vec2 uv, vec2 pixelSize) {
 }
 
 void main() {
-    discardControl(gl_FragCoord.xy, ScreenSize.x);
+    discardControlGLPos(gl_FragCoord.xy, glpos);
     vec4 color = (UseRgss == 1 ? sampleRGSS(Sampler0, texCoord0, 1.0f / TextureSize) : sampleNearest(Sampler0, texCoord0, 1.0f / TextureSize));
     float alpha = color.a * 255.0;
     color *= vertexColor;

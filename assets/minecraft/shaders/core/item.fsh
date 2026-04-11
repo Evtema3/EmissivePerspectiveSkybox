@@ -15,11 +15,12 @@ in vec2 texCoord0;
 
 in vec4 lightMapColor;
 in vec4 maxLightColor;
+in vec4 glpos;
 
 out vec4 fragColor;
 
 void main() {
-    discardControl(gl_FragCoord.xy, ScreenSize.x);
+    discardControlGLPos(gl_FragCoord.xy, glpos);
 
     vec4 color = texture(Sampler0, texCoord0);
 #ifdef ALPHA_CUTOUT

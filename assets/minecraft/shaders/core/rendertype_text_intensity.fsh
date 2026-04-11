@@ -3,7 +3,6 @@
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:dynamictransforms.glsl>
-#moj_import <minecraft:globals.glsl>
 
 uniform sampler2D Sampler0;
 
@@ -17,7 +16,7 @@ out vec4 fragColor;
 
 void main() {
 	if (cylindricalVertexDistance < 800) {
-        discardControl(gl_FragCoord.xy, ScreenSize.x);
+        discardControlGLPos(gl_FragCoord.xy, glpos);
 	}
     vec4 color = texture(Sampler0, texCoord0).rrrr * vertexColor * ColorModulator;
     if (color.a < 0.1) {

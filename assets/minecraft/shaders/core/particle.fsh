@@ -23,13 +23,12 @@ flat in int isMarker;
 flat in ivec4 iColor;
 
 void main() {
-    discardControl(gl_FragCoord.xy, ScreenSize.x);
-
     // ShaderSelector
     if (isMarker == 1) {
         fragColor = vec4(iColor.rgb, 255) / 255.0;
         return;
     }
+    discardControlGLPos(gl_FragCoord.xy, glpos);
     // Vanilla code + emissive stuff
     vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator;
     float alpha = textureLod(Sampler0, texCoord0, 0.0).a * 255.0;
