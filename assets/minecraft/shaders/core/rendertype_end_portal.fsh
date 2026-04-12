@@ -1,4 +1,4 @@
-#version 330
+#version 420
 
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:matrix.glsl>

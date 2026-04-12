@@ -1,4 +1,4 @@
-#version 330
+#version 420
 
 #moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:fog.glsl>
@@ -46,10 +46,7 @@ void main() {
     // offset xp text
     if((length(Color.rgb - vec3(0.501, 1.0, 0.125)) < 0.002 && (isAt(offset, vID, 25,28))) // the bright text starts 27 pixels from the bottom, sometimes at 26
         || (length(Color.rgb - vec3(0.0, 0.0, 0.0)) < 0.002 && (isAt(offset, vID, 24,29)))) { // the darker background consists out of 3 elements (26,27,28), sometimes (25,26,27)
-        
-        /** Reposition (Remove up to Reposition End if unnecessary)**/
-        pos += vec3(0.0,1000.0,0.0); // apply an offset
-        /* Reposition End */
+        vertexColor = vec4(0);
     }
     
     gl_Position = ProjMat * ModelViewMat * vec4(pos, 1.0);

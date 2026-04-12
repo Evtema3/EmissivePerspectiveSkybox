@@ -1,4 +1,4 @@
-#version 330
+#version 420
 
 #moj_import <minecraft:emissive_utils.vsh>
 #moj_import <minecraft:sample_lightmap.glsl>

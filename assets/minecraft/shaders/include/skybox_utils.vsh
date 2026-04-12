@@ -1,6 +1,8 @@
-#version 330
+#version 420
 
-#define NUMCONTROLS 30
+#moj_import <minecraft:float_utils.vsh>
+
+#define NUMCONTROLS 40
 #define THRESH 0.5
 #define FPRECISION 4000000.0
 #define PROJNEAR 0.05
@@ -12,27 +14,32 @@ Control Map:
 [2] sunDir.z
 [3] arctan(ProjMat[0][0])
 [4] arctan(ProjMat[1][1])
-[5] ProjMat[1][0]
+[5] ProjMat[0][0]
 [6] ProjMat[0][1]
-[7] ProjMat[1][2]
-[8] ProjMat[1][3]
-[9] ProjMat[2][0]
-[10] ProjMat[2][1]
-[11] ProjMat[2][2]
-[12] ProjMat[2][3]
-[13] ProjMat[3][0]
-[14] ProjMat[3][1]
-[15] ProjMat[3][2]
-[16] ModelViewMat[0][0]
-[17] ModelViewMat[0][1]
-[18] ModelViewMat[0][2]
-[19] ModelViewMat[1][0]
-[20] ModelViewMat[1][1]
-[21] ModelViewMat[1][2]
-[22] ModelViewMat[2][0]
-[23] ModelViewMat[2][1]
-[24] ModelViewMat[2][2]
-[25] FogColor
+[7] ProjMat[0][2]
+[8] ProjMat[0][3]
+[9] ProjMat[1][0]
+[10] ProjMat[1][1]
+[11] ProjMat[1][2]
+[12] ProjMat[1][3]
+[13] ProjMat[2][0]
+[14] ProjMat[2][1]
+[15] ProjMat[2][2]
+[16] ProjMat[2][3]
+[17] ProjMat[3][0]
+[18] ProjMat[3][1]
+[19] ProjMat[3][2]
+[20] ProjMat[3][3]
+[21] ModelViewMat[0][0]
+[22] ModelViewMat[0][1]
+[23] ModelViewMat[0][2]
+[24] ModelViewMat[1][0]
+[25] ModelViewMat[1][1]
+[26] ModelViewMat[1][2]
+[27] ModelViewMat[2][0]
+[28] ModelViewMat[2][1]
+[29] ModelViewMat[2][2]
+[30] FogColor
 */
 
 // returns control pixel index or -1 if not control
@@ -68,38 +75,4 @@ void discardControlGLPos(vec2 screenCoord, vec4 glpos) {
             discard;
         }
     }
-}
-
-// get screen coordinates of a particular control index
-vec2 getControl(int index, vec2 screenSize) {
-    return vec2(floor(screenSize.x / 2.0) + float(index) * 2.0 + 0.5, 0.5) / screenSize;
-}
-
-int intmod(int i, int base) {
-    return i - (i / base * base);
-}
-
-vec3 encodeInt(int i) {
-    int s = int(i < 0) * 128;
-    i = abs(i);
-    int r = intmod(i, 256);
-    i = i / 256;
-    int g = intmod(i, 256);
-    i = i / 256;
-    int b = intmod(i, 128);
-    return vec3(float(r) / 255.0, float(g) / 255.0, float(b + s) / 255.0);
-}
-
-int decodeInt(vec3 ivec) {
-    ivec *= 255.0;
-    int s = ivec.b >= 128.0 ? -1 : 1;
-    return s * (int(ivec.r) + int(ivec.g) * 256 + (int(ivec.b) - 64 + s * 64) * 256 * 256);
-}
-
-vec3 encodeFloat(float i) {
-    return encodeInt(int(i * FPRECISION));
-}
-
-float decodeFloat(vec3 ivec) {
-    return decodeInt(ivec) / FPRECISION;
 }

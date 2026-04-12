@@ -1,4 +1,4 @@
-#version 330
+#version 420
 
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:fog.glsl>

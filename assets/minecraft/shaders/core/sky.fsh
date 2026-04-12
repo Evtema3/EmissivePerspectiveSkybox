@@ -1,4 +1,4 @@
-#version 330
+#version 420
 
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:skybox_utils.vsh>
@@ -21,20 +21,19 @@ void main() {
     if (index != -1) {
 		gl_FragDepth = 1.0;
         if (isSky > 0.5) {
-            if (index >= 5 && index <= 15) {
+            if (index >= 5 && index <= 20) {
                 int c = (index - 5) / 4;
-                int r = (index - 5) - c * 4;
-                c = (c == 0 && r == 1) ? c : c + 1;
+                int r = (index - 5) % 4;
                 fragColor = vec4(encodeFloat(ProjMat[c][r]), 1.0);
-            } else if (index >= 16 && index <= 24) {
-                int c = (index - 16) / 3;
-                int r = (index - 16) - c * 3;
+            } else if (index >= 21 && index <= 29) {
+                int c = (index - 21) / 3;
+                int r = (index - 21) - c * 3;
                 fragColor = vec4(encodeFloat(ModelViewMat[c][r]), 1.0);
             } else if (index >= 3 && index <= 4) {
                 fragColor = vec4(encodeFloat(atan(ProjMat[index - 3][index - 3])), 1.0);
-            } else if (index == 25) {
+            } else if (index == 30) {
                 fragColor = FogColor;
-            } else if (index == 26) {
+            } else if (index == 31) {
                 fragColor = vec4(0);
             } else {
                 fragColor = vec4(0.0, 0.0, 0.0, 1.0);

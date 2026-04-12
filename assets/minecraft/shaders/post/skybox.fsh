@@ -1,4 +1,4 @@
-#version 330
+#version 420
 
 #moj_import <shader_selector:marker_settings.vsh>
 #moj_import <shader_selector:utils.vsh>
@@ -20,7 +20,6 @@ layout(std140) uniform SamplerInfo {
 
 in vec2 texCoord;
 in vec2 oneTexel;
-in vec3 direction;
 in float timeOfDay; // 1 - Noon, -1 - Midnight
 in float near;
 in float far;
@@ -75,14 +74,22 @@ vec4 linear_fog(vec4 inColor, float vertexDistance, float fogStart, float fogEnd
     return vec4(mix(inColor.rgb, fogColor.rgb, fogValue * fogColor.a), inColor.a);
 }
 
+vec3 screenToPlayer(mat4 projInv, vec3 screen) {
+    vec4 ndc = vec4(screen * 2.0 - 1.0, 1.0);
+    vec4 temp = projInv * ndc;
+    return temp.xyz / temp.w;
+}
+
 void main() {
+	vec3 direction = normalize(screenToPlayer(projInv, vec3(texCoord, 1.0)) - screenToPlayer(projInv, vec3(texCoord, 0.0)));
+
 	float realDepth = linearizeDepth(texture(MainDepthSampler, texCoord).r);
     fragColor = texture(MainSampler, texCoord);
 
 	vec3 temp = fragColor.rgb - vec3(0.157, 0.024, 0.024);
 	bool isNether = dot(temp, temp) < FUDGE;
 
-	if (far > 50 && realDepth > far / 2 - 5) {
+	if (true) {
 		
         float control_color = decodeColor(texelFetch(DataSampler, ivec2(4, SKYBOX_CHANNEL), 0));
         vec3 skyColor = sampleSkybox(SkyBox1Sampler, direction);
@@ -120,7 +127,7 @@ void main() {
 		vec4 finalColor = linear_fog(vec4(skyColor, 1), pow(1.0 - ndusq, 8.0), 0.0, 1.0, fogColor / fogColor.a);
 		
 		fragColor = vec4(mix(
-			finalColor.rgb,
+			skyColor.rgb,
 			fragColor.rgb,
 			fragColor.a
 		), 1);
