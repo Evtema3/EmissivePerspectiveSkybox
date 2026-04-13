@@ -23,7 +23,13 @@ vec3 encodeFloat(float f) {
     float av = abs(f);
 
     int exp;
-    float norm = frexp(av, exp); 
+    float norm = frexp(av, exp);
+
+    if (exp < -63) {
+        exp = -63;
+    } else if (exp > 64) {
+        exp = 64;
+    }
 
     norm *= 2.0;
     exp -= 1;

@@ -127,7 +127,7 @@ void main() {
 		vec4 finalColor = linear_fog(vec4(skyColor, 1), pow(1.0 - ndusq, 8.0), 0.0, 1.0, fogColor / fogColor.a);
 		
 		fragColor = vec4(mix(
-			skyColor.rgb,
+			finalColor.rgb,
 			fragColor.rgb,
 			fragColor.a
 		), 1);

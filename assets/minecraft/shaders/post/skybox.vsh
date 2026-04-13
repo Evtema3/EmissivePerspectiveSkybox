@@ -45,6 +45,16 @@ void main(){
                         decodeFloat(texture(MainSampler, start + 13.0 * inc).xyz), decodeFloat(texture(MainSampler, start + 14.0 * inc).xyz), decodeFloat(texture(MainSampler, start + 15.0 * inc).xyz),  decodeFloat(texture(MainSampler, start + 16.0 * inc).xyz),
                         decodeFloat(texture(MainSampler, start + 17.0 * inc).xyz), decodeFloat(texture(MainSampler, start + 18.0 * inc).xyz), decodeFloat(texture(MainSampler, start + 19.0 * inc).xyz), decodeFloat(texture(MainSampler, start + 20.0 * inc).xyz));
 
+    for (int c = 0; c < 4; c++) {
+        for (int r = 0; r < 4; r++) {
+            if (abs(ProjMat[c][r]) < 0.0001) {
+                ProjMat[c][r] = 0.0;
+            } else if (abs(ProjMat[c][r]) > 100000.0) {
+                ProjMat[c][r] = 0.0;
+            }
+        }
+    }
+    
     sunDir = normalize((inverse(ModelViewMat) * vec4(decodeFloat(texture(MainSampler, start).xyz), 
                                                     decodeFloat(texture(MainSampler, start + inc).xyz), 
                                                     decodeFloat(texture(MainSampler, start + 2.0 * inc).xyz),
