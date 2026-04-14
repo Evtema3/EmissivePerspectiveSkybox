@@ -17,6 +17,7 @@ out float near;
 out float far;
 out mat4 projInv;
 out vec4 fogColor;
+out vec4 baseColor;
 out vec3 up;
 out vec3 sunDir;
 
@@ -63,6 +64,8 @@ void main(){
     up = vec3(0, 1, 0); 
 
     fogColor = texture(MainSampler, start + inc * 30);
+
+    baseColor = texture(MainSampler, start + inc * 31);
 
     timeOfDay = dot(sunDir, vec3(0, 1, 0));
     timeOfDay = 1.0;
