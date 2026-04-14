@@ -4,7 +4,6 @@
 #moj_import <shader_selector:utils.vsh>
 
 uniform sampler2D MainSampler;
-uniform sampler2D MainDepthSampler;
 uniform sampler2D DataSampler;
 uniform sampler2D SkyBox1Sampler;
 uniform sampler2D SkyBox2Sampler;
@@ -84,7 +83,6 @@ vec3 screenToPlayer(mat4 projInv, vec3 screen) {
 void main() {
 	vec3 direction = normalize(screenToPlayer(projInv, vec3(texCoord, 1.0)) - screenToPlayer(projInv, vec3(texCoord, 0.0)));
 
-	float realDepth = linearizeDepth(texture(MainDepthSampler, texCoord).r);
     fragColor = texture(MainSampler, texCoord);
 
 	vec3 temp = fragColor.rgb - vec3(0.157, 0.024, 0.024);

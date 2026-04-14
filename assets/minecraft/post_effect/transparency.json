@@ -54,11 +54,6 @@
                     "target": "minecraft:main"
                 },
                 {
-                    "sampler_name": "MainDepth",
-                    "target": "minecraft:main",
-                    "use_depth_buffer": true
-                },
-                {
                     "sampler_name": "Data",
                     "target": "data"
                 },
