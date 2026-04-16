@@ -54,6 +54,11 @@
                     "target": "minecraft:main"
                 },
                 {
+                    "sampler_name": "MainDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
+                },
+                {
                     "sampler_name": "Data",
                     "target": "data"
                 },
@@ -135,7 +140,7 @@
                 },
                 {
                     "sampler_name": "Particles",
-                    "target": "minecraft:particles"
+                    "target": "swap"
                 },
                 {
                     "sampler_name": "ParticlesDepth",
@@ -177,12 +182,7 @@
                     {
                         "name": "ColorModulate",
                         "type": "vec4",
-                        "value": [
-                            1.0,
-                            1.0,
-                            1.0,
-                            1.0
-                        ]
+                        "value": [ 1.0, 1.0, 1.0, 1.0 ]
                     }
                 ]
             },
