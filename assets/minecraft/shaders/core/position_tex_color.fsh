@@ -23,7 +23,7 @@ void main() {
     if (index != -1) {
         fragColor = vec4(0.0, 0.0, 0.0, 1.0);
     } else {
-        vec4 color = texture(Sampler0, texCoord0);
+        vec4 color = texture(Sampler0, texCoord0) * vertexColor;
         if (color.a < 0.1) {
             discard;
         }
