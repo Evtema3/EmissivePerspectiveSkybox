@@ -1,7 +1,6 @@
 #version 420
 
 #moj_import <minecraft:fog.glsl>
-#moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:emissive_utils.vsh>
 #moj_import <minecraft:dynamictransforms.glsl>
@@ -14,6 +13,7 @@ in vec4 vertexColor;
 in vec2 texCoord0;
 
 in vec4 lightMapColor;
+in vec4 overlayColor;
 in vec4 maxLightColor;
 in vec4 glpos;
 
@@ -30,7 +30,8 @@ void main() {
 #endif
 
     color *= vertexColor * ColorModulator;
-
+    color.rgb = mix(overlayColor.rgb, color.rgb, overlayColor.a);
+    
     float alpha = color.a * 255.0;
     color = make_emissive(color, lightMapColor, maxLightColor, max(sphericalVertexDistance, cylindricalVertexDistance), alpha);
 	color.a = remap_alpha(alpha) / 255.0;

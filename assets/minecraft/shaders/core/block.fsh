@@ -1,7 +1,6 @@
 #version 420
 
 #moj_import <minecraft:fog.glsl>
-#moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:emissive_utils.vsh>
 #moj_import <minecraft:dynamictransforms.glsl>

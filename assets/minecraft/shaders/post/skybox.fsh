@@ -89,7 +89,7 @@ void main() {
 	vec3 temp = fragColor.rgb - vec3(0.157, 0.024, 0.024);
 	bool isNether = dot(temp, temp) < FUDGE;
 
-	if (depth >= 1.0) {
+	if (depth <= 0.0) {
 		
         float control_color = decodeColor(texelFetch(DataSampler, ivec2(4, SKYBOX_CHANNEL), 0));
         vec3 skyColor = sampleSkybox(SkyBox1Sampler, direction);
@@ -119,7 +119,8 @@ void main() {
 
 		vec4 screenPos = gl_FragCoord;
         screenPos.xy = (screenPos.xy / OutSize - vec2(0.5)) * 2.0;
-        screenPos.zw = vec2(1.0);
+        screenPos.z = 0.0; // far plane in reverse-Z
+        screenPos.w = 1.0;
         vec3 view = normalize((projInv * screenPos).xyz);
         float ndusq = clamp(dot(view, vec3(0.0, 1.0, 0.0)), 0.0, 1.0);
         ndusq = ndusq * ndusq;

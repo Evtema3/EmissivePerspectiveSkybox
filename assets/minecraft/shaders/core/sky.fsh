@@ -44,7 +44,8 @@ void main() {
     } else if (isSky > 0.5) {
         vec4 screenPos = gl_FragCoord;
         screenPos.xy = (screenPos.xy / ScreenSize - vec2(0.5)) * 2.0;
-        screenPos.zw = vec2(1.0);
+        screenPos.z = 0.0; // far plane in reverse-Z
+        screenPos.w = 1.0;
         vec3 view = normalize((ProjInv * screenPos).xyz);
         float ndusq = clamp(dot(view, vec3(0.0, 1.0, 0.0)), 0.0, 1.0);
         ndusq = ndusq * ndusq;
