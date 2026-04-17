@@ -1,4 +1,4 @@
-#version 420
+#version 330
 
 layout(std140) uniform LightmapInfo {
     float SkyFactor;
