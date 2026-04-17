@@ -1,4 +1,4 @@
-#version 420
+#version 330
  
 #moj_import <minecraft:projection.glsl>
 #moj_import <minecraft:float_utils.vsh>
