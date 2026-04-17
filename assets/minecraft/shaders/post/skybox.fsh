@@ -1,4 +1,4 @@
-#version 420
+#version 330
 
 #moj_import <shader_selector:marker_settings.vsh>
 #moj_import <shader_selector:utils.vsh>
@@ -89,7 +89,7 @@ void main() {
 	vec3 temp = fragColor.rgb - vec3(0.157, 0.024, 0.024);
 	bool isNether = dot(temp, temp) < FUDGE;
 
-	if (depth <= 0.0) {
+	if (depth <= 0.0 && fogColor.rgb != baseColor.rgb) {
 		
         float control_color = decodeColor(texelFetch(DataSampler, ivec2(4, SKYBOX_CHANNEL), 0));
         vec3 skyColor = sampleSkybox(SkyBox1Sampler, direction);

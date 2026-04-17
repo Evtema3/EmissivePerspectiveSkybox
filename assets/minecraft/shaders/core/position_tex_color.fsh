@@ -1,4 +1,4 @@
-#version 420
+#version 330
 
 #moj_import <minecraft:skybox_utils.vsh>
 #moj_import <minecraft:globals.glsl>

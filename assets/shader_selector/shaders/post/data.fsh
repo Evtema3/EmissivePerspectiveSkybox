@@ -1,4 +1,4 @@
-#version 420
+#version 330
 
 #moj_import <shader_selector:marker_settings.vsh>
 #moj_import <shader_selector:utils.vsh>

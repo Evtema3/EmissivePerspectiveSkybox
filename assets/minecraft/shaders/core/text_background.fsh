@@ -1,4 +1,4 @@
-#version 420
+#version 330
 
 #ifndef IS_SEE_THROUGH
 #moj_import <minecraft:fog.glsl>

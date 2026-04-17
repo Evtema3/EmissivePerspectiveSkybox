@@ -1,4 +1,4 @@
-#version 420
+#version 330
 
 #moj_import <minecraft:emissive_utils.vsh>
 #if defined(PER_FACE_LIGHTING) || !defined(NO_CARDINAL_LIGHTING)
