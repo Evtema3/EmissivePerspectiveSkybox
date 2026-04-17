@@ -1,4 +1,4 @@
-#version 420
+#version 330
 
 #if !defined(IS_GUI) && !defined(IS_SEE_THROUGH)
 #moj_import <minecraft:fog.glsl>
