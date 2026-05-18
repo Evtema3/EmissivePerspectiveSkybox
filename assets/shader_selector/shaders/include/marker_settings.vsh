@@ -7,8 +7,7 @@ signature:
  ADD_MARKER(channel, green, alpha, op, rate)
 */
 // append different marker definitions
-#define LIST_MARKERS \
-ADD_MARKER(SKYBOX_CHANNEL, 253, 0, 0, 0.0)
+#define LIST_MARKERS ADD_MARKER(SKYBOX_CHANNEL, 253, 0, 0, 0.0)
 
 #define MARKER_RED 254
 
