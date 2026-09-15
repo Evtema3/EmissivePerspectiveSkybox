@@ -1,13 +1,24 @@
 #version 330
+#extension GL_ARB_separate_shader_objects : require
 
-#moj_import <minecraft:skybox_utils.vsh>
-#moj_import <minecraft:globals.glsl>
-#moj_import <minecraft:dynamictransforms.glsl>
+#include <minecraft:dynamictransforms.glsl>
+#include <minecraft:oit.glsl>
+#include <minecraft:skybox_utils.glsl>
+#include <minecraft:globals.glsl>
 
-in vec4 vertexColor;
-in float isHorizon;
+layout(location = 0) in vec4 vertexColor;
+layout(location = 1) in float isHorizon;
 
-out vec4 fragColor;
+#ifndef OIT_ALPHA_ONLY
+layout(location = 0) out vec4 fragColor;
+#endif
+
+vec4 calculateFinalColor(vec4 color) {
+    #ifdef OIT_ACCUMULATE
+    color = sampleColorForAccumulation(color);
+    #endif
+    return color;
+}
 
 void main() {
     if (isHorizon > 0.5) {
@@ -18,8 +29,15 @@ void main() {
     if (color.a == 0.0) {
         discard;
     }
-    fragColor = color * ColorModulator;
-	if (isHorizon > 0.5) {
-		fragColor.a = 0;
-	}
+
+    color *= ColorModulator;
+    if (isHorizon > 0.5) {
+        color.a = 0;
+    }
+
+    #ifdef OIT_ALPHA_ONLY
+    executeAlphaOnlyPhase(gl_FragCoord.z, color.a);
+    #else
+    fragColor = calculateFinalColor(color);
+    #endif
 }

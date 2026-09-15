@@ -1,17 +1,18 @@
 #version 330
+#extension GL_ARB_separate_shader_objects : require
 
-#moj_import <minecraft:fog.glsl>
-#moj_import <minecraft:matrix.glsl>
-#moj_import <minecraft:skybox_utils.vsh>
-#moj_import <minecraft:globals.glsl>
+#include <minecraft:fog.glsl>
+#include <minecraft:matrix.glsl>
+#include <minecraft:globals.glsl>
+#include <minecraft:skybox_utils.glsl>
 
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler1;
 
-in vec4 texProj0;
-in vec4 glpos;
-in float sphericalVertexDistance;
-in float cylindricalVertexDistance;
+layout(location = 0) in vec4 texProj0;
+layout(location = 1) in float sphericalVertexDistance;
+layout(location = 2) in float cylindricalVertexDistance;
+layout(location = 3) in vec4 glpos;
 
 const vec3[] COLORS = vec3[](
     vec3(0.022087, 0.098399, 0.110818),
@@ -54,7 +55,7 @@ mat4 end_portal_layer(float layer) {
     return mat4(scale * rotate) * translate * SCALE_TRANSLATE;
 }
 
-out vec4 fragColor;
+layout(location = 0) out vec4 fragColor;
 
 void main() {
     discardControlGLPos(gl_FragCoord.xy, glpos);

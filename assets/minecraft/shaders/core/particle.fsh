@@ -1,34 +1,38 @@
 #version 330
+#extension GL_ARB_separate_shader_objects : require
 
-#moj_import <minecraft:emissive_utils.vsh>
-#moj_import <minecraft:fog.glsl>
-#moj_import <minecraft:dynamictransforms.glsl>
-#moj_import <minecraft:skybox_utils.vsh>
+#include <minecraft:fog.glsl>
+#include <minecraft:dynamictransforms.glsl>
+#include <minecraft:oit.glsl>
+#include <minecraft:emissive_utils.glsl>
+#include <minecraft:skybox_utils.glsl>
 
 uniform sampler2D Sampler0;
 
-in float sphericalVertexDistance;
-in float cylindricalVertexDistance;
-in vec2 texCoord0;
-in vec4 vertexColor;
-in vec4 lightColor;
-in vec4 maxLightColor;
-in vec4 glpos;
+layout(location = 0) in float sphericalVertexDistance;
+layout(location = 1) in float cylindricalVertexDistance;
+layout(location = 2) in vec2 texCoord0;
+layout(location = 3) in vec4 vertexColor;
+layout(location = 4) in vec4 lightColor;
+layout(location = 5) in vec4 maxLightColor;
+layout(location = 6) in vec4 glpos;
 
-out vec4 fragColor;
+#ifndef OIT_ALPHA_ONLY
+layout(location = 0) out vec4 fragColor;
+#endif
 
-// ShaderSelector
-flat in int isMarker;
-flat in ivec4 iColor;
+vec4 calculateFinalColor(vec4 color) {
+    #ifdef OIT_ACCUMULATE
+    color = sampleColorForAccumulation(color);
+    vec4 fogColor = vec4(FogColor.rgb * color.a, FogColor.a);
+    #else
+    vec4 fogColor = FogColor;
+    #endif
+    return apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, fogColor);
+}
 
 void main() {
-    // ShaderSelector
-    if (isMarker == 1) {
-        fragColor = vec4(iColor.rgb, 255) / 255.0;
-        return;
-    }
     discardControlGLPos(gl_FragCoord.xy, glpos);
-    // Vanilla code + emissive stuff
     vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator;
     float alpha = textureLod(Sampler0, texCoord0, 0.0).a * 255.0;
     color = make_emissive(color, lightColor, maxLightColor, max(sphericalVertexDistance, cylindricalVertexDistance), alpha);
@@ -36,5 +40,9 @@ void main() {
     if (color.a < 0.1) {
         discard;
     }
-    fragColor = apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
+    #ifdef OIT_ALPHA_ONLY
+    executeAlphaOnlyPhase(gl_FragCoord.z, color.a);
+    #else
+    fragColor = calculateFinalColor(color);
+    #endif
 }

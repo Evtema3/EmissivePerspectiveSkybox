@@ -1,4 +1,5 @@
-#version 330
+#ifndef GOOD_PHANTOM_EMISSIVE_UTILS_GLSL
+#define GOOD_PHANTOM_EMISSIVE_UTILS_GLSL
 
 // Copied from light.glsl
 vec4 minecraft_sample_lightmap(sampler2D lightMap, ivec2 uv) {
@@ -113,3 +114,5 @@ float remap_alpha(float inputAlpha) {
 	return inputAlpha; // If a pixel doesn't need to have its alpha changed then it simply does not change.
 	
 }
+
+#endif

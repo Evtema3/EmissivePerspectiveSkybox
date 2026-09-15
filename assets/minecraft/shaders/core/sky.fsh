@@ -1,17 +1,18 @@
 #version 330
+#extension GL_ARB_separate_shader_objects : require
 
-#moj_import <minecraft:fog.glsl>
-#moj_import <minecraft:skybox_utils.vsh>
-#moj_import <minecraft:globals.glsl>
-#moj_import <minecraft:dynamictransforms.glsl>
-#moj_import <minecraft:projection.glsl>
+#include <minecraft:fog.glsl>
+#include <minecraft:skybox_utils.glsl>
+#include <minecraft:globals.glsl>
+#include <minecraft:dynamictransforms.glsl>
+#include <minecraft:projection.glsl>
 
-in mat4 ProjInv;
-in float isSky;
-in float sphericalVertexDistance;
-in float cylindricalVertexDistance;
+layout(location = 0) in float sphericalVertexDistance;
+layout(location = 1) in float cylindricalVertexDistance;
+layout(location = 2) in float isSky;
+layout(location = 3) in mat4 ProjInv;
 
-out vec4 fragColor;
+layout(location = 0) out vec4 fragColor;
 
 // at this point, the entire sky is drawable: isSky for sky, stars and void plane for everything else.
 // similar logic can be added in vsh to separate void plane from stars.

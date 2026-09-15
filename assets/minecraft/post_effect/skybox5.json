@@ -1,0 +1,64 @@
+{
+    "targets" : {
+        "final": {}
+    },
+    "passes": [
+        {
+            "vertex_shader": "minecraft:post/skybox",
+            "fragment_shader": "minecraft:post/skybox",
+            "inputs": [
+                {
+                    "sampler_name": "Main",
+                    "target": "minecraft:main"
+                },
+                {
+                    "sampler_name": "MainDepth",
+                    "target": "minecraft:main",
+                    "use_depth_buffer": true
+                },
+                {
+                    "sampler_name": "SkyBox",
+                    "location": "skybox5",
+                    "width": 1,
+                    "height": 1,
+                    "bilinear": false
+                }
+            ],
+            "uniforms": {
+                "Projection": [
+                    {
+                        "name": "ProjMat",
+                        "type": "matrix4x4",
+                        "value": [
+                            1.0, 1.0, 1.0, 1.0,
+                            1.0, 1.0, 1.0, 1.0,
+                            1.0, 1.0, 1.0, 1.0,
+                            1.0, 1.0, 1.0, 1.0
+                        ]
+                    }
+                ]
+            },
+            "output": "final"
+        },
+        {
+            "vertex_shader": "minecraft:core/screenquad",
+            "fragment_shader": "minecraft:post/blit",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "final"
+                }
+            ],
+            "uniforms": {
+                "BlitConfig": [
+                    {
+                        "name": "ColorModulate",
+                        "type": "vec4",
+                        "value": [ 1.0, 1.0, 1.0, 1.0 ]
+                    }
+                ]
+            },
+            "output": "minecraft:main"
+        }
+    ]
+}

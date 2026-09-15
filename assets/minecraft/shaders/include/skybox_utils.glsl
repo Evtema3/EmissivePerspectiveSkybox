@@ -1,6 +1,7 @@
-#version 330
+#ifndef GOOD_PHANTOM_SKYBOX_UTILS_GLSL
+#define GOOD_PHANTOM_SKYBOX_UTILS_GLSL
 
-#moj_import <minecraft:float_utils.vsh>
+#include <minecraft:float_utils.glsl>
 
 #define NUMCONTROLS 40
 #define THRESH 0.5
@@ -76,3 +77,5 @@ void discardControlGLPos(vec2 screenCoord, vec4 glpos) {
         }
     }
 }
+
+#endif

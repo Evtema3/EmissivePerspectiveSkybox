@@ -2,14 +2,12 @@
 #extension GL_ARB_separate_shader_objects : require
 
 #include <minecraft:fog.glsl>
-#include <minecraft:dynamictransforms.glsl>
 #include <minecraft:oit.glsl>
 #include <minecraft:skybox_utils.glsl>
 
-layout(location = 0) in float sphericalVertexDistance;
-layout(location = 1) in float cylindricalVertexDistance;
-layout(location = 2) in vec4 vertexColor;
-layout(location = 3) in vec4 glpos;
+layout(location = 0) in float vertexDistance;
+layout(location = 1) in vec4 vertexColor;
+layout(location = 2) in vec4 glpos;
 
 #ifndef OIT_ALPHA_ONLY
 layout(location = 0) out vec4 fragColor;
@@ -18,16 +16,17 @@ layout(location = 0) out vec4 fragColor;
 vec4 calculateFinalColor(vec4 color) {
     #ifdef OIT_ACCUMULATE
     color = sampleColorForAccumulation(color);
-    vec4 fogColor = vec4(FogColor.rgb * color.a, FogColor.a);
-    #else
-    vec4 fogColor = FogColor;
     #endif
-    return apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, fogColor);
+    return color;
 }
 
 void main() {
     discardControlGLPos(gl_FragCoord.xy, glpos);
-    vec4 color = vertexColor * ColorModulator;
+    vec4 color = vertexColor;
+    #ifndef OIT_DEPTH_BOUNDS
+    color.a *= 1.0f - linear_fog_value(vertexDistance, 0, FogCloudsEnd);
+    #endif
+
     #ifdef OIT_ALPHA_ONLY
     executeAlphaOnlyPhase(gl_FragCoord.z, color.a);
     #else

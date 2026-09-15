@@ -1,20 +1,21 @@
 #version 330
+#extension GL_ARB_separate_shader_objects : require
 
-#moj_import <minecraft:skybox_utils.vsh>
-#moj_import <minecraft:globals.glsl>
-#moj_import <minecraft:dynamictransforms.glsl>
+#include <minecraft:skybox_utils.glsl>
+#include <minecraft:globals.glsl>
+#include <minecraft:dynamictransforms.glsl>
 
 uniform sampler2D Sampler0;
 
-in mat4 ProjInv;
-in vec3 cscale;
-in vec3 c1;
-in vec3 c2;
-in vec3 c3;
-in vec2 texCoord0;
-in float isSun;
+layout(location = 0) in vec2 texCoord0;
+layout(location = 1) in vec3 cscale;
+layout(location = 2) in vec3 c1;
+layout(location = 3) in vec3 c2;
+layout(location = 4) in vec3 c3;
+layout(location = 5) in float isSun;
+layout(location = 6) in mat4 ProjInv;
 
-out vec4 fragColor;
+layout(location = 0) out vec4 fragColor;
 
 #define PRECISIONSCALE 1000.0
 #define MAGICSUNSIZE 3.0

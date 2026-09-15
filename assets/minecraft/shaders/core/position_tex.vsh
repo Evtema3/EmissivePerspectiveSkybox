@@ -1,19 +1,20 @@
 #version 330
+#extension GL_ARB_separate_shader_objects : require
 
-#moj_import <minecraft:dynamictransforms.glsl>
-#moj_import <minecraft:projection.glsl>
+#include <minecraft:dynamictransforms.glsl>
+#include <minecraft:projection.glsl>
 
-in vec3 Position;
-in vec2 UV0;
+layout(location = 0) in vec3 Position;
+layout(location = 1) in vec2 UV0;
 
 uniform sampler2D Sampler0;
-out mat4 ProjInv;
-out vec3 cscale;
-out vec3 c1;
-out vec3 c2;
-out vec3 c3;
-out vec2 texCoord0;
-out float isSun;
+layout(location = 0) out vec2 texCoord0;
+layout(location = 1) out vec3 cscale;
+layout(location = 2) out vec3 c1;
+layout(location = 3) out vec3 c2;
+layout(location = 4) out vec3 c3;
+layout(location = 5) out float isSun;
+layout(location = 6) out mat4 ProjInv;
 
 #define SUNSIZE 60
 #define SUNDIST 110
@@ -41,8 +42,8 @@ void main() {
 
         // modify position of sun so that it covers the entire screen and store c1, c2, c3 so player space position of sun can be extracted in fsh.
         // this is the key to get everything working since it guarantees that we can access sun info in the control pixels in fsh.
-        candidate = vec4(corners[gl_VertexID % 4] * OVERLAYSCALE, 0.0, 1.0);
-        switch (gl_VertexID % 4)
+        candidate = vec4(corners[gl_VertexIndex % 4] * OVERLAYSCALE, 0.0, 1.0);
+        switch (gl_VertexIndex % 4)
         {
             case 0:
                 c1 = Position;

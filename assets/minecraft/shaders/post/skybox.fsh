@@ -1,35 +1,27 @@
 #version 330
-
-#moj_import <shader_selector:marker_settings.vsh>
-#moj_import <shader_selector:utils.vsh>
+#extension GL_ARB_separate_shader_objects : require
 
 uniform sampler2D MainSampler;
 uniform sampler2D MainDepthSampler;
-uniform sampler2D DataSampler;
-uniform sampler2D SkyBox1Sampler;
-uniform sampler2D SkyBox2Sampler;
-uniform sampler2D SkyBox3Sampler;
-uniform sampler2D SkyBox4Sampler;
-uniform sampler2D SkyBox5Sampler;
-uniform sampler2D SkyBox6Sampler;
+uniform sampler2D SkyBoxSampler;
 
 layout(std140) uniform SamplerInfo {
     vec2 OutSize;
     vec2 InSize;
 };
 
-in vec2 texCoord;
-in vec2 oneTexel;
-in float timeOfDay; // 1 - Noon, -1 - Midnight
-in float near;
-in float far;
-in mat4 projInv;
-in vec4 fogColor;
-in vec4 baseColor;
-in vec3 up;
-in vec3 sunDir;
+layout(location = 0) in vec2 texCoord;
+layout(location = 1) in vec2 oneTexel;
+layout(location = 2) in float timeOfDay; // 1 - Noon, -1 - Midnight
+layout(location = 3) in float near;
+layout(location = 4) in float far;
+layout(location = 5) in vec4 fogColor;
+layout(location = 6) in vec4 baseColor;
+layout(location = 7) in vec3 up;
+layout(location = 8) in vec3 sunDir;
+layout(location = 9) in mat4 projInv;
 
-out vec4 fragColor;
+layout(location = 0) out vec4 fragColor;
 
 const float FUDGE = 0.01;
 
@@ -90,31 +82,7 @@ void main() {
 	bool isNether = dot(temp, temp) < FUDGE;
 
 	if (depth <= 0.0 && fogColor.rgb != baseColor.rgb) {
-		
-        float control_color = decodeColor(texelFetch(DataSampler, ivec2(4, SKYBOX_CHANNEL), 0));
-        vec3 skyColor = sampleSkybox(SkyBox1Sampler, direction);
-
-        switch(int(control_color * 255.)) {
-            case 1:
-                skyColor = sampleSkybox(SkyBox1Sampler, direction);
-                break;
-            case 2:
-                skyColor = sampleSkybox(SkyBox2Sampler, direction);
-                break;
-            case 3:
-                skyColor = sampleSkybox(SkyBox3Sampler, direction);
-                break;
-            case 4:
-                skyColor = sampleSkybox(SkyBox4Sampler, direction);
-                break;
-			case 5:
-                skyColor = sampleSkybox(SkyBox5Sampler, direction);
-                break;
-			case 6:
-                skyColor = sampleSkybox(SkyBox6Sampler, direction);
-                break;
-        }
-
+        vec3 skyColor = sampleSkybox(SkyBoxSampler, direction);
 		float factor = smoothstep(-0.1, 0.1, timeOfDay);
 
 		vec4 screenPos = gl_FragCoord;

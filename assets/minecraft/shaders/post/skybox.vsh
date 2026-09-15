@@ -1,7 +1,8 @@
 #version 330
+#extension GL_ARB_separate_shader_objects : require
  
-#moj_import <minecraft:projection.glsl>
-#moj_import <minecraft:float_utils.vsh>
+#include <minecraft:projection.glsl>
+#include <minecraft:float_utils.glsl>
 
 uniform sampler2D MainSampler;
 
@@ -10,22 +11,22 @@ layout(std140) uniform SamplerInfo {
     vec2 InSize;
 };
 
-out vec2 texCoord;
-out vec2 oneTexel;
-out float timeOfDay;
-out float near;
-out float far;
-out mat4 projInv;
-out vec4 fogColor;
-out vec4 baseColor;
-out vec3 up;
-out vec3 sunDir;
+layout(location = 0) out vec2 texCoord;
+layout(location = 1) out vec2 oneTexel;
+layout(location = 2) out float timeOfDay;
+layout(location = 3) out float near;
+layout(location = 4) out float far;
+layout(location = 5) out vec4 fogColor;
+layout(location = 6) out vec4 baseColor;
+layout(location = 7) out vec3 up;
+layout(location = 8) out vec3 sunDir;
+layout(location = 9) out mat4 projInv;
 
 #define FPRECISION 4000000.0
 #define PROJNEAR 0.05
 
 void main(){
-    vec2 uv = vec2((gl_VertexID << 1) & 2, gl_VertexID & 2);
+    vec2 uv = vec2((gl_VertexIndex << 1) & 2, gl_VertexIndex & 2);
     vec4 pos = vec4(uv * vec2(2, 2) + vec2(-1, -1), 0, 1);
 
     gl_Position = pos;

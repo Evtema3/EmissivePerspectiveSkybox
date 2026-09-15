@@ -1,4 +1,5 @@
-#version 330
+#ifndef GOOD_PHANTOM_FLOAT_UTILS_GLSL
+#define GOOD_PHANTOM_FLOAT_UTILS_GLSL
 
 #define FPRECISION 4000000.0
 
@@ -35,3 +36,5 @@ vec3 encodeFloat(float i) {
 float decodeFloat(vec3 ivec) {
     return decodeInt(ivec) / FPRECISION;
 }
+
+#endif
