@@ -81,7 +81,7 @@ void main() {
 	vec3 temp = fragColor.rgb - vec3(0.157, 0.024, 0.024);
 	bool isNether = dot(temp, temp) < FUDGE;
 
-	if (depth <= 0.0 && fogColor.rgb != baseColor.rgb) {
+	if (depth < 1 && fogColor.rgb != baseColor.rgb) {
         vec3 skyColor = sampleSkybox(SkyBoxSampler, direction);
 		float factor = smoothstep(-0.1, 0.1, timeOfDay);
 
