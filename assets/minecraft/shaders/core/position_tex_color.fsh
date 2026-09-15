@@ -23,7 +23,7 @@ layout(location = 0) out vec4 fragColor;
 void main() {
     int index = inControl(gl_FragCoord.xy, ScreenSize.x);
     if (index != -1) {
-        fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        fragColor = vec4(0);
     } else {
         vec4 color = texture(Sampler0, texCoord0) * vertexColor;
         if (color.a < 0.1) {
