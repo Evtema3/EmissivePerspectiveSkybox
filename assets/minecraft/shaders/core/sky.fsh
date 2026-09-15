@@ -48,7 +48,7 @@ void main() {
         screenPos.z = 0.0; // far plane in reverse-Z
         screenPos.w = 1.0;
         vec3 view = normalize((ProjInv * screenPos).xyz);
-        float ndusq = clamp(dot(view, vec3(0.0, 1.0, 0.0)), 0.0, 1.0);
+        float ndusq = clamp(view.y, 0.0, 1.0);
         ndusq = ndusq * ndusq;
 
         fragColor = apply_fog(ColorModulator, pow(1.0 - ndusq, 8.0), pow(1.0 - ndusq, 8.0), 0, 1, 0, 1, FogColor);
