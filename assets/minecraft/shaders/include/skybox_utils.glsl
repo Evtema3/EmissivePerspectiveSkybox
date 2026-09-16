@@ -3,7 +3,7 @@
 
 #include <minecraft:float_utils.glsl>
 
-#define NUMCONTROLS 22
+#define NUMCONTROLS 23
 #define THRESH 0.5
 #define FPRECISION 4000000.0
 #define PROJNEAR 0.05
