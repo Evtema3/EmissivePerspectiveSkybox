@@ -52,6 +52,10 @@ void main() {
     if (color.a < ALPHA_CUTOUT) {
         discard;
     }
+    // cutout pixels have semitransparent edges which cause conflicts with the skybox shader in its attempts to support translucency
+    // this speciifc value is used for cutout vs translucent and can be used to remove those edges by setting alpha to 1
+    // thanks to the der discohund for the tip!!!
+    if (ALPHA_CUTOUT == 0.5) color.a = 1;
     #endif
 
     #ifdef OIT_ALPHA_ONLY
