@@ -25,13 +25,13 @@ void main() {
             if (index >= 5 && index <= 20) {
                 int c = (index - 5) / 4;
                 int r = (index - 5) % 4;
-                fragColor = vec4(encodeFloat(ProjMat[c][r]), 1.0);
+                fragColor = encodeFloat(ProjMat[c][r]);
             } else if (index >= 21 && index <= 29) {
                 int c = (index - 21) / 3;
                 int r = (index - 21) - c * 3;
-                fragColor = vec4(encodeFloat(ModelViewMat[c][r]), 1.0);
+                fragColor = encodeFloat(ModelViewMat[c][r]);
             } else if (index >= 3 && index <= 4) {
-                fragColor = vec4(encodeFloat(atan(ProjMat[index - 3][index - 3])), 1.0);
+                fragColor = encodeFloat(atan(ProjMat[index - 3][index - 3]));
             } else if (index == 30) {
                 fragColor = FogColor;
             } else if (index == 31) {
