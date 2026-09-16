@@ -51,14 +51,12 @@ void main() {
         float ndusq = clamp(view.y, 0.0, 1.0);
         ndusq = ndusq * ndusq;
 
-        // fragColor = apply_fog(ColorModulator, pow(1.0 - ndusq, 8.0), pow(1.0 - ndusq, 8.0), 0, 1, 0, 1, FogColor);
-        // fragColor.a = 0;
-        fragColor = vec4(0);
+        fragColor = apply_fog(ColorModulator, pow(1.0 - ndusq, 8.0), pow(1.0 - ndusq, 8.0), 0, 1, 0, 1, FogColor);
+        fragColor.a = 0;
     }
     else {
 		if (cylindricalVertexDistance < 800)
             discard;
-        fragColor = vec4(0);
-        // fragColor = ColorModulator;//apply_fog(ColorModulator, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
+        fragColor = ColorModulator;//apply_fog(ColorModulator, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
     }
 }
