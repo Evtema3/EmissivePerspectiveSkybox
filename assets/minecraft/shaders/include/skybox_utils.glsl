@@ -3,7 +3,7 @@
 
 #include <minecraft:float_utils.glsl>
 
-#define NUMCONTROLS 40
+#define NUMCONTROLS 22
 #define THRESH 0.5
 #define FPRECISION 4000000.0
 #define PROJNEAR 0.05
@@ -15,32 +15,24 @@ Control Map:
 [2] sunDir.z
 [3] arctan(ProjMat[0][0])
 [4] arctan(ProjMat[1][1])
-[5] ProjMat[0][0]
-[6] ProjMat[0][1]
-[7] ProjMat[0][2]
-[8] ProjMat[0][3]
-[9] ProjMat[1][0]
-[10] ProjMat[1][1]
-[11] ProjMat[1][2]
-[12] ProjMat[1][3]
-[13] ProjMat[2][0]
-[14] ProjMat[2][1]
-[15] ProjMat[2][2]
-[16] ProjMat[2][3]
-[17] ProjMat[3][0]
-[18] ProjMat[3][1]
-[19] ProjMat[3][2]
-[20] ProjMat[3][3]
-[21] ModelViewMat[0][0]
-[22] ModelViewMat[0][1]
-[23] ModelViewMat[0][2]
-[24] ModelViewMat[1][0]
-[25] ModelViewMat[1][1]
-[26] ModelViewMat[1][2]
-[27] ModelViewMat[2][0]
-[28] ModelViewMat[2][1]
-[29] ModelViewMat[2][2]
-[30] FogColor
+[5] IProjViewMat[0][0]
+[6] IProjViewMat[0][1]
+[7] IProjViewMat[0][2]
+[8] IProjViewMat[0][3]
+[9] IProjViewMat[1][0]
+[10] IProjViewMat[1][1]
+[11] IProjViewMat[1][2]
+[12] IProjViewMat[1][3]
+[13] IProjViewMat[2][0]
+[14] IProjViewMat[2][1]
+[15] IProjViewMat[2][2]
+[16] IProjViewMat[2][3]
+[17] IProjViewMat[3][0]
+[18] IProjViewMat[3][1]
+[19] IProjViewMat[3][2]
+[20] IProjViewMat[3][3]
+[21] FogColor
+[22] BaseColor
 */
 
 // returns control pixel index or -1 if not control

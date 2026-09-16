@@ -19,22 +19,19 @@ layout(location = 0) out vec4 fragColor;
 void main() {
 	gl_FragDepth = gl_FragCoord.z;
     int index = inControl(gl_FragCoord.xy, ScreenSize.x);
+    mat4 IProjViewMat = inverse(ProjMat * ModelViewMat);
     if (index != -1) {
 		gl_FragDepth = 1.0;
         if (isSky > 0.5) {
             if (index >= 5 && index <= 20) {
                 int c = (index - 5) / 4;
                 int r = (index - 5) % 4;
-                fragColor = encodeFloat(ProjMat[c][r]);
-            } else if (index >= 21 && index <= 29) {
-                int c = (index - 21) / 3;
-                int r = (index - 21) - c * 3;
-                fragColor = encodeFloat(ModelViewMat[c][r]);
+                fragColor = encodeFloat(IProjViewMat[c][r]);
             } else if (index >= 3 && index <= 4) {
                 fragColor = encodeFloat(atan(ProjMat[index - 3][index - 3]));
-            } else if (index == 30) {
+            } else if (index == 21) {
                 fragColor = FogColor;
-            } else if (index == 31) {
+            } else if (index == 22) {
                 fragColor = vec4(0);
             } else {
                 fragColor = vec4(0.0, 0.0, 0.0, 1.0);

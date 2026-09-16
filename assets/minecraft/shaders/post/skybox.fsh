@@ -13,21 +13,15 @@ layout(std140) uniform SamplerInfo {
 layout(location = 0) in vec2 texCoord;
 layout(location = 1) in vec2 oneTexel;
 layout(location = 2) in float timeOfDay; // 1 - Noon, -1 - Midnight
-layout(location = 3) in float near;
-layout(location = 4) in float far;
-layout(location = 5) in vec4 fogColor;
-layout(location = 6) in vec4 baseColor;
-layout(location = 7) in vec3 up;
-layout(location = 8) in vec3 sunDir;
-layout(location = 9) in mat4 projInv;
+layout(location = 3) in vec4 fogColor;
+layout(location = 4) in vec4 baseColor;
+layout(location = 5) in vec3 up;
+layout(location = 6) in vec3 sunDir;
+layout(location = 7) in mat4 projInv;
 
 layout(location = 0) out vec4 fragColor;
 
 const float FUDGE = 0.01;
-
-float linearizeDepth(float depth) {
-    return (2.0 * near * far) / (far + near - depth * (far - near));    
-}
 
 vec3 sampleSkybox(sampler2D skyboxSampler, vec3 direction) {
 	float l = max(max(abs(direction.x), abs(direction.y)), abs(direction.z));
