@@ -72,7 +72,7 @@ void main() {
 	
 	// vec3 direction = normalize(screenToPlayer(projInv, vec3(texCoord, 1.0)) - screenToPlayer(projInv, vec3(texCoord, 0.0)));
 	vec3 pos = screenToPlayer(projInv, vec3(texCoord, depth));
-	vec3 direction = normalize(pos - screenToPlayer(projInv, vec3(texCoord, 1.0)));
+	vec3 direction = normalize(screenToPlayer(projInv, vec3(texCoord, 1.0)) - pos);
 
 	vec4 main = texture(MainSampler, texCoord);
     fragColor = main;
