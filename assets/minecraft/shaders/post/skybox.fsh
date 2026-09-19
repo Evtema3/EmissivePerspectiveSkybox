@@ -1,6 +1,8 @@
 #version 330
 #extension GL_ARB_separate_shader_objects : require
 
+#include <minecraft:skybox_utils.glsl>
+
 uniform sampler2D MainSampler;
 uniform sampler2D MainDepthSampler;
 uniform sampler2D SkyBoxSampler;
@@ -70,15 +72,10 @@ vec3 screenToPlayer(mat4 projInv, vec3 screen) {
 void main() {
     float depth = texture(MainDepthSampler, texCoord).r;
 	
-	// vec3 direction = normalize(screenToPlayer(projInv, vec3(texCoord, 1.0)) - screenToPlayer(projInv, vec3(texCoord, 0.0)));
 	vec3 pos = screenToPlayer(projInv, vec3(texCoord, depth));
 	vec3 direction = normalize(screenToPlayer(projInv, vec3(texCoord, 1.0)) - pos);
 
-	vec4 main = texture(MainSampler, texCoord);
-    fragColor = main;
-
-	vec3 temp = main.rgb - vec3(0.157, 0.024, 0.024);
-	bool isNether = dot(temp, temp) < FUDGE;
+	fragColor = texture(MainSampler, texCoord);
 
 	if (fogColor.rgb != baseColor.rgb) {
         vec3 skyColor = sampleSkybox(SkyBoxSampler, direction);
@@ -93,18 +90,15 @@ void main() {
         ndusq = ndusq * ndusq;
 
 		vec3 sky = vec3(0);
-		vec4 terrain = main;
-		terrain.rgb = (main.rgb - sky * (1-main.a)) / max(main.a, 0.01);
+		vec3 terrain = fragColor.a == 0.0 ? vec3(0) : fragColor.rgb / fragColor.a;
 
 		vec4 finalColor = linear_fog(vec4(skyColor, 1), pow(1.0 - ndusq, 8.0), 0.0, 1.0, fogColor / fogColor.a);
 		
 		fragColor = vec4(mix(
-			finalColor.rgb,
+			FAKEFOG == 1 ? finalColor.rgb : skyColor.rgb,
 			terrain.rgb,
-			main.a
+			fragColor.a
 		), 1);
-		
-
 	}
 	
 }

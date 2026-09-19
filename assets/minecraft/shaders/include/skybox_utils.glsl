@@ -3,6 +3,7 @@
 
 #include <minecraft:float_utils.glsl>
 
+#define FAKEFOG 1
 #define NUMCONTROLS 23
 #define THRESH 0.5
 #define FPRECISION 4000000.0
