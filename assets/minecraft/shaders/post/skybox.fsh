@@ -68,14 +68,19 @@ vec3 screenToPlayer(mat4 projInv, vec3 screen) {
 }
 
 void main() {
-	vec3 direction = normalize(screenToPlayer(projInv, vec3(texCoord, 1.0)) - screenToPlayer(projInv, vec3(texCoord, 0.0)));
     float depth = texture(MainDepthSampler, texCoord).r;
-    fragColor = texture(MainSampler, texCoord);
+	
+	// vec3 direction = normalize(screenToPlayer(projInv, vec3(texCoord, 1.0)) - screenToPlayer(projInv, vec3(texCoord, 0.0)));
+	vec3 pos = screenToPlayer(projInv, vec3(texCoord, depth));
+	vec3 direction = normalize(pos - screenToPlayer(projInv, vec3(texCoord, 1.0)));
 
-	vec3 temp = fragColor.rgb - vec3(0.157, 0.024, 0.024);
+	vec4 main = texture(MainSampler, texCoord);
+    fragColor = main;
+
+	vec3 temp = main.rgb - vec3(0.157, 0.024, 0.024);
 	bool isNether = dot(temp, temp) < FUDGE;
 
-	if (depth < 1 && fogColor.rgb != baseColor.rgb) {
+	if (fogColor.rgb != baseColor.rgb) {
         vec3 skyColor = sampleSkybox(SkyBoxSampler, direction);
 		float factor = smoothstep(-0.1, 0.1, timeOfDay);
 
@@ -87,12 +92,16 @@ void main() {
         float ndusq = clamp(dot(view, vec3(0.0, 1.0, 0.0)), 0.0, 1.0);
         ndusq = ndusq * ndusq;
 
+		vec3 sky = vec3(0);
+		vec4 terrain = main;
+		terrain.rgb = (main.rgb - sky * (1-main.a)) / max(main.a, 0.01);
+
 		vec4 finalColor = linear_fog(vec4(skyColor, 1), pow(1.0 - ndusq, 8.0), 0.0, 1.0, fogColor / fogColor.a);
 		
 		fragColor = vec4(mix(
 			finalColor.rgb,
-			fragColor.rgb,
-			fragColor.a
+			terrain.rgb,
+			main.a
 		), 1);
 		
 

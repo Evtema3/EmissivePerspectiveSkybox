@@ -40,20 +40,23 @@ void main() {
             discard;
         }
     } else if (isSky > 0.5) {
-        vec4 screenPos = gl_FragCoord;
-        screenPos.xy = (screenPos.xy / ScreenSize - vec2(0.5)) * 2.0;
-        screenPos.z = 0.0; // far plane in reverse-Z
-        screenPos.w = 1.0;
-        vec3 view = normalize((ProjInv * screenPos).xyz);
-        float ndusq = clamp(view.y, 0.0, 1.0);
-        ndusq = ndusq * ndusq;
+        // vec4 screenPos = gl_FragCoord;
+        // screenPos.xy = (screenPos.xy / ScreenSize - vec2(0.5)) * 2.0;
+        // screenPos.z = 0.0; // far plane in reverse-Z
+        // screenPos.w = 1.0;
+        // vec3 view = normalize((ProjInv * screenPos).xyz);
+        // float ndusq = clamp(view.y, 0.0, 1.0);
+        // ndusq = ndusq * ndusq;
 
-        fragColor = apply_fog(ColorModulator, pow(1.0 - ndusq, 8.0), pow(1.0 - ndusq, 8.0), 0, 1, 0, 1, FogColor);
-        fragColor.a = 0;
+        // fragColor = apply_fog(ColorModulator, pow(1.0 - ndusq, 8.0), pow(1.0 - ndusq, 8.0), 0, 1, 0, 1, FogColor);
+        // fragColor.a = 0;
+
+        fragColor = vec4(0);
     }
     else {
 		if (cylindricalVertexDistance < 800)
             discard;
-        fragColor = ColorModulator;//apply_fog(ColorModulator, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
+        fragColor = vec4(0);
+        // fragColor = ColorModulator;//apply_fog(ColorModulator, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
     }
 }
